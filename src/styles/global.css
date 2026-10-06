@@ -1,0 +1,116 @@
+@import "tailwindcss";
+@import "@fontsource/oswald/400.css";
+@import "@fontsource/oswald/500.css";
+@import "@fontsource/oswald/600.css";
+@import "@fontsource/oswald/700.css";
+
+@font-face {
+  font-family: 'Sego';
+  src: url('/fonts/SEGO.otf') format('opentype'),
+    url('/fonts/SEGO.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  /* Fonts */
+  --font-sans: 'Oswald', sans-serif;
+  --font-serif: 'Sego', serif;
+
+  /* Brand Primary (#44FF33) */
+  --color-primary: #44ff33;
+  --color-primary-50: #f4fff3;
+  --color-primary-100: #e1ffde;
+  --color-primary-200: #c3ffbe;
+  --color-primary-300: #9eff95;
+  --color-primary-400: #6dff60;
+  --color-primary-500: #44ff33;
+  --color-primary-600: #3ad92b;
+  --color-primary-700: #2ca621;
+  --color-primary-800: #1f7317;
+  --color-primary-900: #12450e;
+  --color-primary-950: #0a2407;
+
+  /* Brand Secondary (#FF6B35) */
+  --color-secondary: #ff6b35;
+  --color-secondary-50: #fff6f3;
+  --color-secondary-100: #ffe7df;
+  --color-secondary-200: #ffd0be;
+  --color-secondary-300: #ffb296;
+  --color-secondary-400: #ff8c61;
+  --color-secondary-500: #ff6b35;
+  --color-secondary-600: #d95b2d;
+  --color-secondary-700: #a64622;
+  --color-secondary-800: #733018;
+  --color-secondary-900: #451d0e;
+  --color-secondary-950: #240f07;
+
+  /* Brand Base (#1C1C1C) */
+  --color-base: #1c1c1c;
+  --color-base-50: #f6f6f6;
+  --color-base-100: #e7e7e7;
+  --color-base-200: #d1d1d1;
+  --color-base-300: #b0b0b0;
+  --color-base-400: #888888;
+  --color-base-500: #666666;
+  --color-base-600: #4d4d4d;
+  --color-base-700: #3a3a3a;
+  --color-base-800: #282828;
+  --color-base-900: #1c1c1c;
+  --color-base-950: #0f0f0f;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-base);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  margin: 0;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+}
+
+.bg-dots-pattern {
+  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(175, 231, 36, 0.15) 1px, transparent 1px);
+}
+
+/* Athletic glow & text effects */
+.text-glow-lime {
+  text-shadow: 0 0 20px rgba(175, 231, 36, 0.6), 0 0 45px rgba(175, 231, 36, 0.3);
+}
+
+.glow-lime {
+  box-shadow: 0 0 35px rgba(175, 231, 36, 0.25);
+}
+
+.glow-lime-sm {
+  box-shadow: 0 0 15px rgba(175, 231, 36, 0.2);
+}
+
+.border-glow-lime {
+  border-color: #AFE724;
+  box-shadow: 0 0 25px rgba(175, 231, 36, 0.22);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-base-800);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
