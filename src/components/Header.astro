@@ -1,9 +1,132 @@
 ---
 import AmbientGlow from "@/components/AmbientGlow.astro";
 import TranslucentText from "@/components/TranslucentText.astro";
+import { PERSONAL_DATA } from "@/constants/personalData";
+
+interface Props {
+    title?: string;
+}
+
+const { title = "FORJA TU MEJOR VERSIÓN" } = Astro.props;
 ---
 
-<section class="relative overflow-hidden bg-dots-pattern h-screen">
+<section
+    class="relative overflow-hidden bg-basic bg-dots-pattern min-h-screen flex items-center pt-24 pb-16 lg:py-0"
+>
+    <!-- Fondo y efectos de iluminación en verde (#44FF33) -->
     <AmbientGlow />
-    <TranslucentText text="FISICO" />
+
+    <!-- Resplandor verde de alta intensidad centrado detrás del entrenador -->
+    <div
+        class="absolute top-1/3 right-1/4 w-[350px] sm:w-[520px] h-[350px] sm:h-[520px] bg-primary/15 rounded-full blur-[140px] pointer-events-none -z-10"
+    >
+    </div>
+
+    <!-- Textos gigantes de fondo (conservados y ajustados como en la imagen) -->
+    <TranslucentText text="FISICO" verticalPosition="top-36" />
+    <TranslucentText
+        text="PERFECTO"
+        align="right"
+        verticalPosition="bottom-32"
+    />
+
+    <div class="relative z-10 mx-auto max-w-7xl px-6 w-full">
+        <div
+            class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
+        >
+            <!-- COLUMNA IZQUIERDA: Titulares y Llamadas a la acción -->
+            <div
+                class="lg:col-span-6 xl:col-span-7 flex flex-col items-start text-left z-20"
+            >
+                <!-- Badge con indicador de estado verde neón -->
+                <div
+                    class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-basic/80 border border-primary/20 backdrop-blur-md mb-6"
+                >
+                    <span
+                        class="h-2 w-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_#44FF33]"
+                    ></span>
+                    <span
+                        class="text-xs sm:text-sm font-semibold tracking-wider uppercase"
+                    >
+                        ENTRENADOR PERSONAL CERTIFICADO
+                    </span>
+                </div>
+
+                <!-- Título principal de gran impacto -->
+                <h1
+                    class="font-sans font-black text-5xl sm:text-6xl md:text-7xl xl:text-8xl tracking-tight text-white uppercase leading-[0.92] mb-6"
+                >
+                    FORJA TU <br />
+                    <span class="text-primary text-glow-lime"
+                        >MEJOR VERSIÓN</span
+                    >
+                </h1>
+
+                <!-- Bajada descriptiva -->
+                <p
+                    class="text-base sm:text-lg text-white/75 max-w-xl font-normal leading-relaxed mb-8"
+                >
+                    Entrenamiento personalizado diseñado para ti — tus
+                    objetivos, tu ritmo, tus resultados reales.
+                </p>
+
+                <!-- Botones de acción -->
+                <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+                    <a
+                        href={PERSONAL_DATA.whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="group inline-flex items-center gap-3 bg-primary text-basic font-black text-xs sm:text-sm uppercase tracking-wider px-7 py-4 rounded-xl shadow-lg shadow-primary/25 hover:bg-primary-400 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                    >
+                        <span>RESERVA TU SESIÓN</span>
+                        <svg
+                            class="w-4 h-4 transition-transform group-hover:translate-x-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2.5"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </a>
+
+                    <a
+                        href="#programas"
+                        class="inline-flex items-center text-xs sm:text-sm font-bold uppercase tracking-widest text-white/80 hover:text-primary transition-colors py-4 px-2"
+                    >
+                        VER PROGRAMAS
+                    </a>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: Imagen de Andrés recortada a la cintura + Tarjetas flotantes -->
+            <div
+                class="lg:col-span-6 xl:col-span-5 relative flex flex-col items-center lg:items-end justify-end"
+            >
+                <!-- Contenedor del Coach recortado a la cintura (mitad del cuerpo) con desvanecimiento inferior suave -->
+                <div
+                    class="relative w-full max-w-105 sm:max-w-120 lg:max-w-130 h-120 sm:h-145 lg:h-165 overflow-hidden flex items-end justify-center"
+                >
+                    <img
+                        src="/img/coachSF.webp"
+                        alt={PERSONAL_DATA.name}
+                        fetchpriority="high"
+                        loading="eager"
+                        decoding="async"
+                        class="w-full h-full object-cover object-top filter contrast-[1.05] brightness-[1.02]"
+                        style="mask-image: linear-gradient(to top, transparent 0%, black 16%); -webkit-mask-image: linear-gradient(to top, transparent 0%, black 16%);"
+                    />
+
+                    <!-- Degradado inferior para fundir el corte con el fondo basic (#1C1C1C) -->
+                    <div
+                        class="absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-basic via-basic/80 to-transparent pointer-events-none"
+                    >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

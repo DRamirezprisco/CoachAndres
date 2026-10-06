@@ -46,19 +46,19 @@
   --color-secondary-900: #451d0e;
   --color-secondary-950: #240f07;
 
-  /* Brand Base (#1C1C1C) */
-  --color-base: #1c1c1c;
-  --color-base-50: #f6f6f6;
-  --color-base-100: #e7e7e7;
-  --color-base-200: #d1d1d1;
-  --color-base-300: #b0b0b0;
-  --color-base-400: #888888;
-  --color-base-500: #666666;
-  --color-base-600: #4d4d4d;
-  --color-base-700: #3a3a3a;
-  --color-base-800: #282828;
-  --color-base-900: #1c1c1c;
-  --color-base-950: #0f0f0f;
+  /* Brand Basic (#1C1C1C) */
+  --color-basic: #1c1c1c;
+  --color-basic-50: #f6f6f6;
+  --color-basic-100: #e7e7e7;
+  --color-basic-200: #d1d1d1;
+  --color-basic-300: #b0b0b0;
+  --color-basic-400: #888888;
+  --color-basic-500: #666666;
+  --color-basic-600: #4d4d4d;
+  --color-basic-700: #3a3a3a;
+  --color-basic-800: #282828;
+  --color-basic-900: #1c1c1c;
+  --color-basic-950: #0f0f0f;
 }
 
 :root {
@@ -66,7 +66,7 @@
 }
 
 body {
-  background-color: var(--color-base);
+  background-color: var(--color-basic);
   color: #ffffff;
   font-family: var(--font-sans);
   margin: 0;
@@ -103,11 +103,11 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-base);
+  background: var(--color-basic);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-base-800);
+  background: var(--color-basic-800);
   border-radius: 4px;
 }
 
