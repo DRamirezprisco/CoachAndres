@@ -19,7 +19,7 @@ export interface DeveloperInfo {
 
 export const SITE_CONFIG: ContactInfo = {
     name: "Andrés Sastoque · Entrenador Personal",
-    slogan: "¡!",
+    slogan: "¡Mi prioridad es que entrenes con intención, con seguridad y con un plan que puedas sostener en el tiempo!",
     sloganSecondary: "¡Juntos somos más fuertes!",
     description:
         "",

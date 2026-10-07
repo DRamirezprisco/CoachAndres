@@ -7,7 +7,7 @@ const SOCIAL = [
     {
         name: "Instagram",
         icon: "",
-        url: "https://www.instagram.com/andressastoque_fit/"
+        url: "https://www.instagram.com/andy_s_bogota/"
     },
     {
         name: "Youtube",
