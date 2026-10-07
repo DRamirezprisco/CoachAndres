@@ -1,1 +1,133 @@
-<section class="h-screen"></section>
+---
+import AmbientGlow from "@/components/AmbientGlow.astro";
+import TranslucentText from "@/components/TranslucentText.astro";
+import { PERSONAL_DATA } from "@/constants/personalData";
+import SOCIAL from "@/constants/social";
+
+// Redes sociales filtradas
+const instagramUrl = SOCIAL.find((s) => s.name === "Instagram")?.url || "#";
+const whatsappUrl = PERSONAL_DATA.whatsappUrl;
+const youtubeUrl = SOCIAL.find((s) => s.name === "Youtube")?.url || "#";
+const tiktokUrl = SOCIAL.find((s) => s.name === "TikTok")?.url || "#";
+---
+
+<section class="relative overflow-hidden bg-basic bg-dots-pattern py-10">
+    <!-- Fondo y efectos de iluminación  -->
+    <AmbientGlow />
+
+    <!-- Resplandor verde de alta intensidad centrado detrás del entrenador -->
+    <div
+        class="absolute top-1/3 right-1/4 w-87.5 sm:w-130 h-87.5 sm:h-130 bg-primary/15 rounded-full blur-[140px] pointer-events-none -z-10"
+    >
+    </div>
+
+    <!-- Textos gigantes de fondo (conservados y ajustados como en la imagen) -->
+    <TranslucentText text="FISICO" verticalPosition="-top-4" />
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Nombre del Coach y Redes Sociales -->
+        <div class="flex items-center justify-between gap-4 mb-4">
+            <div class="flex items-center gap-2">
+                <div class="flex items-start justify-start">
+                    <img src="/img/logo.webp" alt="Logo" class="size-14" />
+                </div>
+
+                <div class="flex flex-col leading-tight select-none">
+                    <span
+                        class="text-lg sm:text-xl font-bold tracking-wider text-white uppercase font-serif"
+                    >
+                        {PERSONAL_DATA.name}
+                    </span>
+                    <span>
+                        {PERSONAL_DATA.role}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Iconos de Redes Sociales -->
+            <div class="flex items-center gap-4">
+                <!-- Instagram -->
+                <a
+                    href={instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram de Andrés Sastoque"
+                    class="w-11 h-11 flex items-center justify-center rounded-full text-primary border-primary/50 bg-basic-950 transition-all border-2"
+                >
+                    <svg
+                        class="size-6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        viewBox="0 0 24 24"
+                    >
+                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"
+                        ></rect>
+                        <path
+                            d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                        ></path>
+                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                    </svg>
+                </a>
+                <!-- WhatsApp -->
+                <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="WhatsApp de Andrés Sastoque"
+                    class="w-11 h-11 flex items-center justify-center rounded-full text-primary border-primary/50 bg-basic-950 transition-all border-2"
+                >
+                    <svg class="size-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
+                        ></path>
+                    </svg>
+                </a>
+                <!-- TikTok -->
+                <a
+                    href={tiktokUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="TikTok de Andrés Sastoque"
+                    class="w-11 h-11 flex items-center justify-center rounded-full text-primary border-primary/50 bg-basic-950 transition-all border-2"
+                >
+                    <svg
+                        class="size-5.5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.97v7.65c0 2.05-.6 4.12-1.87 5.76-1.42 1.83-3.6 2.98-5.91 3.08-2.6.12-5.22-.88-6.91-2.83-1.84-2.11-2.45-5.08-1.6-7.79.81-2.58 2.92-4.63 5.5-5.28.32-.08.64-.13.97-.17v4.11c-.55.13-1.09.35-1.55.71-.85.67-1.32 1.75-1.25 2.82.07 1.14.73 2.18 1.72 2.67 1 .5 2.21.43 3.14-.17.72-.47 1.18-1.28 1.25-2.14.03-.52.02-1.04.02-1.56V.02h.65z"
+                        ></path>
+                    </svg>
+                </a>
+                <!-- YouTube -->
+                <a
+                    href={youtubeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="YouTube de Andrés Sastoque"
+                    class="w-11 h-11 flex items-center justify-center rounded-full text-primary border-primary/50 bg-basic-950 transition-all border-2"
+                >
+                    <svg class="size-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+                        ></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="text-center absolute left-0 right-0 top-5">
+            <span
+                class="mx-auto text-base sm:text-lg text-basic-300 max-w-xl font-light italic leading-relaxed mb-6 mt-2 text-center"
+            >
+                {PERSONAL_DATA.slogan2}
+                <br />
+                {PERSONAL_DATA.slogan3}
+            </span>
+        </div>
+    </div>
+</section>
