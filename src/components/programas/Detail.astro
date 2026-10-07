@@ -1,0 +1,129 @@
+---
+const { prog } = Astro.props;
+import ButtonAlt from "@/components/ButtonAlt.astro";
+---
+
+<div
+  class="program-card bg-basic-900/90 border border-basic-800 hover:border-primary transition-all duration-300 flex flex-col justify-between group overflow-hidden shadow-2xl rounded-xs"
+  data-category={prog.category}
+>
+  <div>
+    <!-- Cabecera con Imagen y Superposición con Degradado -->
+    <div class="relative h-60 sm:h-64 w-full overflow-hidden bg-basic-950">
+      <img
+        src={prog.image}
+        alt={prog.title}
+        loading="lazy"
+        decoding="async"
+        class="w-full h-full object-cover filter brightness-90 contrast-110 group-hover:scale-105 transition-transform duration-700 ease-out"
+      />
+      <div
+        class="absolute inset-0 bg-linear-to-t from-basic-900 via-basic-900/40 to-transparent"
+      >
+      </div>
+
+      <!-- Barra de Medidor de Intensidad -->
+      <div
+        class="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[10px] uppercase bg-basic-950/90 backdrop-blur-md p-2 rounded-xs border border-basic-800"
+      >
+        <span class="text-basic-400 font-bold"> INTENSIDAD DE EXIGENCIA: </span>
+        <div class="flex items-center gap-1">
+          {
+            [1, 2, 3, 4, 5].map((bar) => (
+              <div
+                class={`w-3 h-2 rounded-xs transition-colors ${
+                  bar <= prog.intensityBars
+                    ? "bg-primary shadow-[0_0_8px_rgba(68,255,51,0.6)]"
+                    : "bg-basic-800"
+                }`}
+              />
+            ))
+          }
+          <span class="text-white font-bold ml-1.5">
+            {prog.intensity}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenido de la Tarjeta -->
+    <div class="p-6 sm:p-7">
+      <h3
+        class="font-sans text-2xl sm:text-3xl font-bold uppercase text-white tracking-wide group-hover:text-primary transition-colors mb-2"
+      >
+        {prog.title}
+      </h3>
+      <p
+        class="text-xs sm:text-sm text-basic-300 leading-relaxed mb-6 font-normal"
+      >
+        {prog.description}
+      </p>
+
+      <!-- Barra de Métricas Técnicas -->
+      <div
+        class="grid grid-cols-3 gap-2 py-3 px-4 bg-basic-950 border border-basic-800 rounded-xs mb-6 text-center"
+      >
+        <div>
+          <span
+            class="block text-[9px] uppercase font-bold text-basic-400 tracking-wider"
+          >
+            Nivel
+          </span>
+          <span class="block text-xs font-semibold text-white mt-0.5">
+            {prog.level}
+          </span>
+        </div>
+        <div class="border-x border-basic-800">
+          <span
+            class="block text-[9px] uppercase font-bold text-basic-400 tracking-wider"
+          >
+            Duración
+          </span>
+          <span class="block text-xs font-semibold text-white mt-0.5">
+            {prog.duration}
+          </span>
+        </div>
+        <div>
+          <span
+            class="block text-[9px] uppercase font-bold text-basic-400 tracking-wider"
+          >
+            Frecuencia
+          </span>
+          <span class="block text-xs font-semibold text-primary mt-0.5">
+            {prog.frequency}
+          </span>
+        </div>
+      </div>
+
+      <!-- Lista de Especificaciones Técnicas -->
+      <div class="space-y-2 mb-2">
+        <span
+          class="block text-[11px] uppercase font-bold tracking-wider text-white"
+        >
+          ESPECIFICACIONES TÉCNICAS:
+        </span>
+        {
+          prog.highlights.map((item) => (
+            <div class="flex items-start gap-2.5 text-sm text-basic-300">
+              <span class="text-primary font-black leading-none pt-0.5">
+                &gt;
+              </span>
+              <span class="leading-snug">{item}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer y Llamada a la Acción de la Tarjeta -->
+  <div
+    class="px-6 sm:px-7 pb-6 sm:pb-7 pt-4 border-t border-basic-800 flex items-center justify-between"
+  >
+    <span class="text-sm text-basic-300 font-semibold">
+      Plazas abiertas este mes
+    </span>
+
+    <ButtonAlt href="#contactame" text="POSTULAR AL PROGRAMA" />
+  </div>
+</div>

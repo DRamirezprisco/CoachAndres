@@ -15,16 +15,7 @@ export const NAV_ITEMS: NavItem[] = [
     url: "#programas",
     key: "programas",
   },
-  {
-    name: "Métodos",
-    url: "#metodos",
-    key: "metodos",
-  },
-  {
-    name: "Planes",
-    url: "#planes",
-    key: "planes",
-  },
+
   {
     name: "Testimonios",
     url: "#testimonios",

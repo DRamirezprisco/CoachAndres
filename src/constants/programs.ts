@@ -13,6 +13,7 @@ export interface ProgramItem {
   highlights: string[];
   badgeColor: string;
   menu: string;
+  precio: number;
 }
 
 export const PROGRAMS_DATA: ProgramItem[] = [
@@ -37,6 +38,7 @@ export const PROGRAMS_DATA: ProgramItem[] = [
     ],
     badgeColor: "bg-primary text-basic-900",
     menu: "Hipertrofia",
+    precio: 180,
   },
   {
     id: "fatloss",
@@ -59,6 +61,7 @@ export const PROGRAMS_DATA: ProgramItem[] = [
     ],
     badgeColor: "bg-basic-50 text-basic-900",
     menu: "Definición",
+    precio: 350,
   },
   {
     id: "functional",
@@ -81,6 +84,7 @@ export const PROGRAMS_DATA: ProgramItem[] = [
     ],
     badgeColor: "bg-basic-800 text-primary border border-primary/40",
     menu: "Funcional",
+    precio: 450,
   },
   {
     id: "vip",
@@ -103,5 +107,6 @@ export const PROGRAMS_DATA: ProgramItem[] = [
     ],
     badgeColor: "bg-primary text-basic-900",
     menu: "Coaching VIP",
+    precio: 750,
   },
 ];
