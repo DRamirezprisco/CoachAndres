@@ -1,0 +1,269 @@
+---
+import { NAV_ITEMS } from "@/constants/navigation";
+import { PERSONAL_DATA } from "@/constants/personalData";
+import Button from "@/components/Button.astro";
+---
+
+<header
+  id="main-navbar"
+  class="fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ease-in-out border-b nav-transparent"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div
+      class="flex items-center justify-between h-16 sm:h-20 transition-all duration-300"
+    >
+      <!-- Brand Logo & Name -->
+      <a
+        href="#inicio"
+        class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg py-1"
+        aria-label={`Página principal de ${PERSONAL_DATA.name}`}
+      >
+        <!-- Athletic Icon Symbol -->
+        <div class="relative flex items-center justify-center shrink-0">
+          <img src="/img/logo.webp" alt="Logo" class="size-10" />
+        </div>
+
+        <!-- Brand Text: Name + Role in Spanish -->
+        <div class="flex flex-col leading-tight select-none">
+          <span
+            class="text-base sm:text-lg font-bold tracking-wider text-white uppercase font-serif"
+          >
+            {PERSONAL_DATA.name}
+          </span>
+          <span
+            class="text-[9px] sm:text-[11px] font-semibold tracking-[0.26em] text-white/60 uppercase"
+          >
+            Entrenador Personal
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Items -->
+      <nav
+        class="hidden lg:flex items-center gap-6 xl:gap-8"
+        aria-label="Navegación principal"
+      >
+        {
+          NAV_ITEMS.map((item, index) => (
+            <a
+              href={item.url}
+              data-key={item.key}
+              class="nav-link group relative py-2 font-sans font-semibold text-sm xl:text-base uppercase tracking-wider transition-colors duration-200 text-white/70 hover:text-white"
+            >
+              <span>{item.name}</span>
+              <span class="nav-indicator absolute -bottom-1.5 left-0 right-0 h-0.75 bg-primary rounded-full transition-all duration-300 origin-center opacity-0 scale-x-0 group-hover:opacity-60 group-hover:scale-x-75" />
+            </a>
+          ))
+        }
+      </nav>
+
+      <!-- Desktop CTA Button -->
+      <div class="hidden md:flex items-center gap-4">
+        <Button href="#contactame"> Únete Ahora </Button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-btn"
+        type="button"
+        aria-label="Abrir menú de navegación"
+        aria-expanded="false"
+        class="lg:hidden relative p-2 text-white/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg transition-colors cursor-pointer"
+      >
+        <!-- Hamburger Icon -->
+        <svg
+          id="hamburger-icon"
+          class="w-7 h-7 block"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.5"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        <!-- Close Icon -->
+        <svg
+          id="close-icon"
+          class="w-7 h-7 hidden"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.5"
+            d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Navigation -->
+  <div
+    id="mobile-menu"
+    class="lg:hidden hidden border-t border-white/10 bg-basic-950/95 backdrop-blur-2xl shadow-2xl px-6 py-6 transition-all duration-300"
+  >
+    <nav class="flex flex-col gap-3" aria-label="Navegación móvil">
+      {
+        NAV_ITEMS.map((item) => (
+          <a
+            href={item.url}
+            data-key={item.key}
+            class="mobile-nav-link text-base sm:text-lg font-sans font-semibold uppercase tracking-wider text-white/80 hover:text-primary transition-colors py-2 border-b border-white/5"
+          >
+            {item.name}
+          </a>
+        ))
+      }
+      <div class="pt-4">
+        <a
+          href="#contactame"
+          class="mobile-nav-link flex items-center justify-center w-full py-3 px-6 rounded-lg bg-primary text-basic-950 font-sans font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(68,255,51,0.35)] hover:bg-primary-400 active:scale-[0.98] transition-all"
+        >
+          Únete Ahora
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav-transparent {
+    background-color: transparent;
+    border-bottom-color: transparent;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    box-shadow: none;
+  }
+
+  :global(.nav-scrolled) {
+    background-color: rgba(28, 28, 28, 0.88) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+    padding-top: 0rem !important;
+    padding-bottom: 0rem !important;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7) !important;
+  }
+</style>
+
+<script>
+  function setupNavbar() {
+    const navbar = document.getElementById("main-navbar");
+    const mobileBtn = document.getElementById("mobile-menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const hamburgerIcon = document.getElementById("hamburger-icon");
+    const closeIcon = document.getElementById("close-icon");
+    const navLinks = document.querySelectorAll(".nav-link");
+    const mobileLinks = document.querySelectorAll(".mobile-nav-link");
+
+    // Scroll state management
+    const handleScroll = () => {
+      if (!navbar) return;
+      if (window.scrollY > 20) {
+        navbar.classList.add("nav-scrolled");
+        navbar.classList.remove("nav-transparent");
+      } else {
+        navbar.classList.remove("nav-scrolled");
+        navbar.classList.add("nav-transparent");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    // Active link highlighting based on scroll position
+    const updateActiveNav = () => {
+      const sections = document.querySelectorAll("section[id]");
+      if (!sections.length) return;
+
+      const scrollPos = window.scrollY + 120;
+      let currentSectionId = "";
+
+      sections.forEach((section) => {
+        const htmlSection = section as HTMLElement;
+        const top = htmlSection.offsetTop;
+        const height = htmlSection.offsetHeight;
+        if (scrollPos >= top && scrollPos < top + height) {
+          currentSectionId = section.getAttribute("id") || "";
+        }
+      });
+
+      // Default to first section when at top
+      if (!currentSectionId && window.scrollY < 200 && sections.length > 0) {
+        currentSectionId = sections[0].getAttribute("id") || "";
+      }
+
+      if (currentSectionId) {
+        navLinks.forEach((link) => {
+          const href = link.getAttribute("href");
+          const indicator = link.querySelector(".nav-indicator");
+          const isActive = href === `#${currentSectionId}`;
+
+          if (isActive) {
+            link.classList.add("text-white", "is-active");
+            link.classList.remove("text-white/70");
+            indicator?.classList.remove("opacity-0", "scale-x-0");
+            indicator?.classList.add("opacity-100", "scale-x-100");
+          } else {
+            link.classList.remove("text-white", "is-active");
+            link.classList.add("text-white/70");
+            indicator?.classList.add("opacity-0", "scale-x-0");
+            indicator?.classList.remove("opacity-100", "scale-x-100");
+          }
+        });
+      }
+    };
+
+    window.addEventListener("scroll", updateActiveNav, { passive: true });
+    updateActiveNav();
+
+    // Mobile menu toggle
+    const toggleMobileMenu = () => {
+      if (!mobileMenu || !hamburgerIcon || !closeIcon || !mobileBtn) return;
+      const isOpen = !mobileMenu.classList.contains("hidden");
+
+      if (isOpen) {
+        mobileMenu.classList.add("hidden");
+        hamburgerIcon.classList.remove("hidden");
+        closeIcon.classList.add("hidden");
+        mobileBtn.setAttribute("aria-expanded", "false");
+      } else {
+        mobileMenu.classList.remove("hidden");
+        hamburgerIcon.classList.add("hidden");
+        closeIcon.classList.remove("hidden");
+        mobileBtn.setAttribute("aria-expanded", "true");
+      }
+    };
+
+    mobileBtn?.addEventListener("click", toggleMobileMenu);
+
+    // Close mobile menu on clicking any link
+    mobileLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
+          toggleMobileMenu();
+        }
+      });
+    });
+
+    // Close mobile menu on resize to desktop
+    window.addEventListener("resize", () => {
+      if (
+        window.innerWidth >= 1024 &&
+        mobileMenu &&
+        !mobileMenu.classList.contains("hidden")
+      ) {
+        toggleMobileMenu();
+      }
+    });
+  }
+
+  // Run on initial load and view transitions
+  setupNavbar();
+  document.addEventListener("astro:after-swap", setupNavbar);
+</script>
