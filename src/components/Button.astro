@@ -1,0 +1,28 @@
+---
+interface Props {
+    href?: string;
+    class?: string;
+    target?: string;
+    rel?: string;
+    pulse?: boolean;
+}
+
+const {
+    href,
+    class: className = "",
+    target = "_blank",
+    rel = "noopener noreferrer",
+    pulse = false,
+} = Astro.props;
+---
+
+<a
+    href={href}
+    target={target}
+    rel={rel}
+    class={`relative group inline-flex items-center justify-center gap-3 text-basic-50 text-xs sm:text-sm uppercase tracking-wider px-7 py-4 rounded-xl bg-transparent border border-primary ${pulse ? "animate-border-pulse" : ""} transition-all duration-300 hover:bg-primary-700 hover:border-primary-700 hover:text-basic hover:shadow-[0_0_30px_rgba(68,255,51,0.6)] hover:scale-[1.02] active:scale-[0.98] ${className}`}
+>
+    <span class="relative z-10 flex items-center gap-3 font-semibold">
+        <slot />
+    </span>
+</a>
