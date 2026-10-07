@@ -30,9 +30,4 @@ export const NAV_ITEMS: NavItem[] = [
     url: "#testimonios",
     key: "testimonios",
   },
-  {
-    name: "Contáctame",
-    url: "#contactame",
-    key: "contactame",
-  },
 ];
