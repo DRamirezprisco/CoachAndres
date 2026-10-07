@@ -2,6 +2,7 @@
 import { PROGRAMS_DATA } from "@/constants/programs";
 import Titulo from "@/components/Titulo.astro";
 import ProgramCard from "@/components/programas/Card.astro";
+import ProgramDetail from "@/components/programas/Detail.astro";
 ---
 
 <section
@@ -40,4 +41,82 @@ import ProgramCard from "@/components/programas/Card.astro";
       {PROGRAMS_DATA.map((prog) => <ProgramCard prog={prog} />)}
     </div>
   </div>
+
+  <!-- Modales con el detalle completo de cada programa -->
+  {PROGRAMS_DATA.map((prog) => <ProgramDetail prog={prog} />)}
 </section>
+
+<script>
+  function setupProgramModals() {
+    const openButtons = document.querySelectorAll("[data-open-modal]");
+    const closeButtons = document.querySelectorAll("[data-close-modal]");
+    const modals = document.querySelectorAll(".program-modal");
+
+    function openModal(id: string) {
+      const modal = document.getElementById(`modal-${id}`);
+      if (!modal) return;
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      document.body.classList.add("overflow-hidden");
+    }
+
+    function closeModal(modal: Element) {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      const anyOpen = Array.from(modals).some((m) =>
+        m.classList.contains("flex")
+      );
+      if (!anyOpen) {
+        document.body.classList.remove("overflow-hidden");
+      }
+    }
+
+    openButtons.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const id = btn.getAttribute("data-open-modal");
+        if (id) openModal(id);
+      });
+    });
+
+    closeButtons.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const modal = btn.closest(".program-modal");
+        if (modal) closeModal(modal);
+      });
+    });
+
+    // Cerrar al hacer clic en el backdrop oscuro fuera del modal
+    modals.forEach((modal) => {
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          closeModal(modal);
+        }
+      });
+    });
+
+    // Cerrar al presionar la tecla Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        modals.forEach((modal) => {
+          if (modal.classList.contains("flex")) {
+            closeModal(modal);
+          }
+        });
+      }
+    });
+
+    // Cerrar el modal al hacer clic en enlaces internos (por ejemplo: Postular al programa)
+    const modalLinks = document.querySelectorAll(".program-modal a[href^='#']");
+    modalLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        const modal = link.closest(".program-modal");
+        if (modal) closeModal(modal);
+      });
+    });
+  }
+
+  setupProgramModals();
+  document.addEventListener("astro:after-swap", setupProgramModals);
+</script>

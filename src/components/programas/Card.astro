@@ -1,4 +1,10 @@
 ---
+import type { ProgramItem } from "@/constants/programs";
+
+interface Props {
+  prog: ProgramItem;
+}
+
 const { prog } = Astro.props;
 ---
 
@@ -82,12 +88,17 @@ const { prog } = Astro.props;
     </div>
 
     <button
-      class="flex items-center justify-center gap-2 cursor-pointer hover:text-primary transition-colors"
+      type="button"
+      data-open-modal={prog.id}
+      aria-haspopup="dialog"
+      aria-label={`Más información sobre ${prog.title}`}
+      class="flex items-center justify-center gap-2 cursor-pointer text-sm font-semibold text-white/90 hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-basic-800/60"
     >
-      Más información <svg
+      <span>Más información</span>
+      <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
+        width="20"
+        height="20"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
