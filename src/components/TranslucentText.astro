@@ -1,21 +1,69 @@
 ---
-const { text, align = "center", verticalPosition = "top-28" } = Astro.props;
+interface Props {
+  text: string;
+  align?: "center" | "left" | "right";
+  verticalPosition?: string;
+  size?: "sm" | "md" | "lg" | "xl" | string | number;
+  opacity?: string;
+  class?: string;
+}
 
-const alignClass = {
-    center: "justify-center",
-    left: "justify-start",
-    right: "justify-end",
+const {
+  text,
+  align = "center",
+  verticalPosition = "top-28",
+  size = "lg",
+  opacity = "opacity-[0.035]",
+  class: className = "",
+} = Astro.props;
+
+const alignClass: Record<string, string> = {
+  center: "justify-center",
+  left: "justify-start",
+  right: "justify-end",
 };
+
+// Tamaños predefinidos responsivos por defecto
+const sizePresets: Record<string, string> = {
+  sm: "text-[70px] sm:text-[120px] lg:text-[180px]",
+  md: "text-[90px] sm:text-[160px] lg:text-[240px]",
+  lg: "text-[120px] sm:text-[220px] lg:text-[320px]",
+  xl: "text-[150px] sm:text-[260px] lg:text-[380px]",
+};
+
+// Detectar cómo aplicar el size:
+// 1. Presets ('sm' | 'md' | 'lg' | 'xl')
+const isPreset = typeof size === "string" && size in sizePresets;
+
+// 2. Clases directas de Tailwind (ej: 'text-6xl sm:text-9xl' o 'text-[200px]')
+const isTailwindClass = typeof size === "string" && size.startsWith("text-");
+
+// Clases de Tailwind finales para el tamaño
+const textSizeClass = isPreset
+  ? sizePresets[size]
+  : isTailwindClass
+    ? size
+    : "";
+
+// Estilo en línea si se especifica un valor exacto (ej: '280px', '18vw', '15rem', o número 280)
+const customStyle =
+  !isPreset && !isTailwindClass && size
+    ? {
+        fontSize: typeof size === "number" ? `${size}px` : size,
+      }
+    : undefined;
 ---
 
 <div
-    class={`absolute ${verticalPosition} left-0 right-0 select-none pointer-events-none overflow-hidden flex ${
-        alignClass[align]
-    } opacity-[0.035] leading-none z-0`}
+  class={`absolute ${verticalPosition} left-0 right-0 select-none pointer-events-none overflow-hidden flex ${
+    alignClass[align] || "justify-center"
+  } ${opacity} leading-none z-0 ${className}`}
 >
-    <span
-        class="font-display font-black text-[120px] sm:text-[220px] lg:text-[320px] tracking-tighter text-white uppercase whitespace-nowrap"
-    >
-        {text}
-    </span>
+  <span
+    class={`font-display font-black tracking-tighter text-white uppercase whitespace-nowrap ${textSizeClass}`}
+    style={customStyle}
+  >
+    {text}
+  </span>
 </div>
+
