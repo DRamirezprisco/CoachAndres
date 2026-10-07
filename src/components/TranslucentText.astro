@@ -6,6 +6,7 @@ interface Props {
   size?: "sm" | "md" | "lg" | "xl" | string | number;
   opacity?: string;
   class?: string;
+  zIndex?: string;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   size = "lg",
   opacity = "opacity-[0.035]",
   class: className = "",
+  zIndex = "z-1",
 } = Astro.props;
 
 const alignClass: Record<string, string> = {
@@ -57,7 +59,7 @@ const customStyle =
 <div
   class={`absolute ${verticalPosition} left-0 right-0 select-none pointer-events-none overflow-hidden flex ${
     alignClass[align] || "justify-center"
-  } ${opacity} leading-none z-0 ${className}`}
+  } ${opacity} leading-none ${zIndex} ${className}`}
 >
   <span
     class={`font-display font-black tracking-tighter text-white uppercase whitespace-nowrap ${textSizeClass}`}
@@ -66,4 +68,3 @@ const customStyle =
     {text}
   </span>
 </div>
-

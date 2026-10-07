@@ -1,0 +1,27 @@
+---
+import { PERSONAL_DATA } from "@/constants/personalData";
+
+interface Props {
+    image?: string;
+    badge1?: string;
+    badge2?: string;
+    line1?: string;
+    line2?: string;
+    lineHighlight?: string;
+    ctaText?: string;
+    ctaUrl?: string;
+}
+
+const {
+    image = "/img/testimonios.webp",
+    badge1 = "GIMNASIO",
+    badge2 = "50%",
+    line1 = "COMIENZA",
+    line2 = "A ENTRENAR",
+    lineHighlight = "HOY MISMO!",
+    ctaText = "ÚNETE",
+    ctaUrl = PERSONAL_DATA.whatsappUrl,
+} = Astro.props;
+---
+
+<div></div>
