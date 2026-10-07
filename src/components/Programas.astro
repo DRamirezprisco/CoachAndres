@@ -7,11 +7,17 @@ import ProgramDetail from "@/components/programas/Detail.astro";
 
 <section
   id="programas"
-  class="py-24 bg-basic border-t border-basic-800 relative bg-dots-pattern overflow-hidden"
+  class="py-12 bg-basic border-t border-basic-800 relative bg-dots-pattern overflow-hidden"
 >
+  <!-- Resplandor ambiental de fondo sutil -->
+  <div
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-150 bg-primary/5 rounded-full blur-[160px] pointer-events-none"
+  >
+  </div>
+
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <!-- Encabezado de la Sección -->
-    <div class="flex items-center justify-center text-center mb-14">
+    <div class="flex flex-col items-center justify-center text-center mb-14">
       <div class="max-w-xl">
         <div
           class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-basic/80 border border-primary/20 backdrop-blur-md mb-6"
@@ -36,9 +42,87 @@ import ProgramDetail from "@/components/programas/Detail.astro";
       </div>
     </div>
 
-    <!-- Grid de Programas (Tarjetas con Imágenes Fotográficas) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="programs-grid">
-      {PROGRAMS_DATA.map((prog) => <ProgramCard prog={prog} />)}
+    <!-- Contenedor del Slider Infinito -->
+    <div class="relative group/slider px-0 sm:px-4">
+      <!-- Ventana de Desplazamiento (Viewport) -->
+      <div class="overflow-hidden py-4 -mx-3 px-3" id="slider-container">
+        <div
+          id="slider-track"
+          class="flex items-stretch will-change-transform select-none"
+        >
+          {
+            // Triplicamos los elementos para lograr un loop infinito perfecto, fluido y sin saltos visuales
+            [...PROGRAMS_DATA, ...PROGRAMS_DATA, ...PROGRAMS_DATA].map(
+              (prog) => (
+                <div class="slider-slide w-full md:w-1/2 shrink-0 px-3 sm:px-4 flex flex-col h-full">
+                  <ProgramCard prog={prog} />
+                </div>
+              ),
+            )
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Controles Inferiores: Dots y Controles Móviles -->
+    <div
+      class="flex items-center justify-between sm:justify-center gap-6 mt-8 max-w-xs mx-auto"
+    >
+      <!-- Botón Anterior Móvil -->
+      <button
+        id="slider-prev-mobile"
+        type="button"
+        aria-label="Programa anterior"
+        class="flex w-10 h-10 rounded-full bg-basic-900 text-white hover:text-primary border border-basic-700 items-center justify-center cursor-pointer active:scale-95 transition-all"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path d="M15 18l-6-6 6-6"></path>
+        </svg>
+      </button>
+
+      <!-- Indicadores de Paginación (Dots) -->
+      <div class="flex items-center gap-2.5" id="slider-dots">
+        {
+          PROGRAMS_DATA.map((prog, index) => (
+            <button
+              type="button"
+              data-dot-index={index}
+              aria-label={`Ir al programa ${prog.title}`}
+              class={`slider-dot h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                index === 0
+                  ? "w-8 bg-primary shadow-[0_0_10px_rgba(68,255,51,0.5)]"
+                  : "w-2.5 bg-basic-700 hover:bg-basic-600"
+              }`}
+            />
+          ))
+        }
+      </div>
+
+      <!-- Botón Siguiente Móvil -->
+      <button
+        id="slider-next-mobile"
+        type="button"
+        aria-label="Programa siguiente"
+        class="flex w-10 h-10 rounded-full bg-basic-900 text-white hover:text-primary border border-basic-700 items-center justify-center cursor-pointer active:scale-95 transition-all"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path d="M9 18l6-6-6-6"></path>
+        </svg>
+      </button>
     </div>
   </div>
 
@@ -47,6 +131,206 @@ import ProgramDetail from "@/components/programas/Detail.astro";
 </section>
 
 <script>
+  function setupProgramsSlider() {
+    const track = document.getElementById("slider-track") as HTMLElement | null;
+    const container = document.getElementById("slider-container");
+    const prevBtn = document.getElementById("slider-prev");
+    const nextBtn = document.getElementById("slider-next");
+    const prevBtnMobile = document.getElementById("slider-prev-mobile");
+    const nextBtnMobile = document.getElementById("slider-next-mobile");
+    const dots = document.querySelectorAll(".slider-dot");
+
+    if (!track || !container) return;
+
+    const slides = track.querySelectorAll(".slider-slide");
+    const originalCount = dots.length; // 4 programas originales
+    if (originalCount === 0 || slides.length === 0) return;
+
+    // Empezamos en el segundo set (el set real de en medio)
+    let currentIndex = originalCount;
+    let isAnimating = false;
+    let autoplayTimer: ReturnType<typeof setInterval> | null = null;
+
+    function getSlideWidth(): number {
+      const firstSlide = slides[0] as HTMLElement;
+      return firstSlide ? firstSlide.getBoundingClientRect().width : 0;
+    }
+
+    function updateDots() {
+      const activeDotIndex =
+        ((currentIndex % originalCount) + originalCount) % originalCount;
+      dots.forEach((dot, idx) => {
+        if (idx === activeDotIndex) {
+          dot.classList.remove("w-2.5", "bg-basic-700");
+          dot.classList.add(
+            "w-8",
+            "bg-primary",
+            "shadow-[0_0_10px_rgba(68,255,51,0.5)]",
+          );
+        } else {
+          dot.classList.remove(
+            "w-8",
+            "bg-primary",
+            "shadow-[0_0_10px_rgba(68,255,51,0.5)]",
+          );
+          dot.classList.add("w-2.5", "bg-basic-700");
+        }
+      });
+    }
+
+    function setPosition(animate = true) {
+      if (!track) return;
+      const width = getSlideWidth();
+      if (animate) {
+        track.style.transition =
+          "transform 500ms cubic-bezier(0.25, 1, 0.5, 1)";
+      } else {
+        track.style.transition = "none";
+      }
+      track.style.transform = `translate3d(${-currentIndex * width}px, 0, 0)`;
+      updateDots();
+    }
+
+    // Inicializar posición sin animación
+    setPosition(false);
+
+    function nextSlide() {
+      if (isAnimating) return;
+      isAnimating = true;
+      currentIndex++;
+      setPosition(true);
+      safetyUnlock();
+    }
+
+    function prevSlide() {
+      if (isAnimating) return;
+      isAnimating = true;
+      currentIndex--;
+      setPosition(true);
+      safetyUnlock();
+    }
+
+    function safetyUnlock() {
+      setTimeout(() => {
+        isAnimating = false;
+      }, 550);
+    }
+
+    // Manejar el salto invisible del loop infinito al terminar la transición
+    track.addEventListener("transitionend", () => {
+      isAnimating = false;
+      if (!track) return;
+
+      // Si pasamos al set 3 (derecha), reseteamos al set 2
+      if (currentIndex >= originalCount * 2) {
+        currentIndex = currentIndex - originalCount;
+        setPosition(false);
+      }
+      // Si retrocedemos al set 1 (izquierda), reseteamos al set 2
+      else if (currentIndex < originalCount) {
+        currentIndex = currentIndex + originalCount;
+        setPosition(false);
+      }
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      nextSlide();
+      resetAutoplay();
+    });
+    prevBtn?.addEventListener("click", () => {
+      prevSlide();
+      resetAutoplay();
+    });
+    nextBtnMobile?.addEventListener("click", () => {
+      nextSlide();
+      resetAutoplay();
+    });
+    prevBtnMobile?.addEventListener("click", () => {
+      prevSlide();
+      resetAutoplay();
+    });
+
+    // Clic en dots
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        if (isAnimating) return;
+        const targetIndex = Number(dot.getAttribute("data-dot-index"));
+        currentIndex = originalCount + targetIndex;
+        setPosition(true);
+        resetAutoplay();
+      });
+    });
+
+    // Soporte para gestos táctiles (Swipe en móvil)
+    let startX = 0;
+    let currentX = 0;
+    let isTouching = false;
+
+    track.addEventListener(
+      "touchstart",
+      (e) => {
+        startX = e.touches[0].clientX;
+        currentX = startX;
+        isTouching = true;
+        stopAutoplay();
+      },
+      { passive: true },
+    );
+
+    track.addEventListener(
+      "touchmove",
+      (e) => {
+        if (!isTouching) return;
+        currentX = e.touches[0].clientX;
+      },
+      { passive: true },
+    );
+
+    track.addEventListener("touchend", () => {
+      if (!isTouching) return;
+      isTouching = false;
+      const diffX = startX - currentX;
+      if (Math.abs(diffX) > 45) {
+        if (diffX > 0) nextSlide();
+        else prevSlide();
+      }
+      startAutoplay();
+    });
+
+    // Ajustar en redimensionamiento de pantalla
+    window.addEventListener("resize", () => {
+      setPosition(false);
+    });
+
+    // Autoplay opcional suave (cada 5.5 segundos)
+    function startAutoplay() {
+      stopAutoplay();
+      autoplayTimer = setInterval(() => {
+        // Pausar si hay un modal abierto
+        const hasOpenModal = document.querySelector(".program-modal.flex");
+        if (!hasOpenModal) {
+          nextSlide();
+        }
+      }, 5500);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    }
+
+    function resetAutoplay() {
+      stopAutoplay();
+      startAutoplay();
+    }
+
+    container.addEventListener("mouseenter", stopAutoplay);
+    container.addEventListener("mouseleave", startAutoplay);
+    startAutoplay();
+  }
+
   function setupProgramModals() {
     const openButtons = document.querySelectorAll("[data-open-modal]");
     const closeButtons = document.querySelectorAll("[data-close-modal]");
@@ -64,7 +348,7 @@ import ProgramDetail from "@/components/programas/Detail.astro";
       modal.classList.add("hidden");
       modal.classList.remove("flex");
       const anyOpen = Array.from(modals).some((m) =>
-        m.classList.contains("flex")
+        m.classList.contains("flex"),
       );
       if (!anyOpen) {
         document.body.classList.remove("overflow-hidden");
@@ -87,7 +371,6 @@ import ProgramDetail from "@/components/programas/Detail.astro";
       });
     });
 
-    // Cerrar al hacer clic en el backdrop oscuro fuera del modal
     modals.forEach((modal) => {
       modal.addEventListener("click", (e) => {
         if (e.target === modal) {
@@ -96,7 +379,6 @@ import ProgramDetail from "@/components/programas/Detail.astro";
       });
     });
 
-    // Cerrar al presionar la tecla Escape
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         modals.forEach((modal) => {
@@ -107,7 +389,6 @@ import ProgramDetail from "@/components/programas/Detail.astro";
       }
     });
 
-    // Cerrar el modal al hacer clic en enlaces internos (por ejemplo: Postular al programa)
     const modalLinks = document.querySelectorAll(".program-modal a[href^='#']");
     modalLinks.forEach((link) => {
       link.addEventListener("click", () => {
@@ -117,6 +398,11 @@ import ProgramDetail from "@/components/programas/Detail.astro";
     });
   }
 
-  setupProgramModals();
-  document.addEventListener("astro:after-swap", setupProgramModals);
+  function init() {
+    setupProgramsSlider();
+    setupProgramModals();
+  }
+
+  init();
+  document.addEventListener("astro:after-swap", init);
 </script>

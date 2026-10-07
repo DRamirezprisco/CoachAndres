@@ -9,36 +9,35 @@ const { prog } = Astro.props;
 ---
 
 <div
-  class="relative program-card bg-basic-900/90 rounded-xl border border-basic-800 hover:border-primary transition-all duration-300 flex flex-col justify-between group overflow-hidden shadow-2xl"
+  class="relative program-card bg-basic-900/90 rounded-2xl border border-basic-800 hover:border-primary transition-all duration-300 flex flex-col justify-between group overflow-hidden shadow-2xl h-[520px] sm:h-[550px] w-full"
   data-category={prog.category}
 >
-  <div>
-    <!-- Cabecera con Imagen y Superposición con Degradado -->
-    <div class="relative h-full w-full overflow-hidden bg-basic-950">
-      <img
-        src={prog.image}
-        alt={prog.title}
-        loading="lazy"
-        decoding="async"
-        class="w-full h-full object-cover filter brightness-90 contrast-110 group-hover:scale-105 transition-transform duration-700 ease-out"
-      />
-      <div
-        class="absolute inset-0 bg-linear-to-t from-basic-900 via-basic-900/40 to-transparent"
-      >
-      </div>
+  <!-- Área de Imagen con Información Superpuesta (Altura Fija Unificada) -->
+  <div class="relative w-full h-[420px] sm:h-[450px] overflow-hidden bg-basic-950 shrink-0">
+    <img
+      src={prog.image}
+      alt={prog.title}
+      loading="lazy"
+      decoding="async"
+      class="w-full h-full object-cover object-top filter brightness-90 contrast-110 group-hover:scale-105 transition-transform duration-700 ease-out"
+    />
+    <div
+      class="absolute inset-0 bg-linear-to-t from-basic-900 via-basic-900/50 to-transparent"
+    >
     </div>
 
-    <!-- Contenido de la Tarjeta -->
-    <div class="absolute bottom-15 w-full p-6 sm:px-7">
+    <!-- Contenido Superpuesto en la parte inferior de la imagen -->
+    <div class="absolute bottom-0 inset-x-0 p-5 sm:p-6 z-10">
       <h3
-        class="font-sans text-xl sm:text-2xl font-bold uppercase text-white tracking-wide group-hover:text-primary transition-colors mb-5"
+        class="font-sans text-lg sm:text-xl md:text-2xl font-bold uppercase text-white tracking-wide group-hover:text-primary transition-colors mb-3 line-clamp-1"
+        title={prog.title}
       >
         {prog.title}
       </h3>
 
       <!-- Barra de Métricas Técnicas -->
       <div
-        class="grid grid-cols-3 gap-2 py-3 px-4 bg-basic-950 border border-basic-800 rounded-xs mb-6 text-center"
+        class="grid grid-cols-3 gap-2 py-2.5 px-3 sm:px-4 bg-basic-950/90 backdrop-blur-md border border-basic-800/80 rounded-lg text-center"
       >
         <div>
           <span
@@ -46,17 +45,17 @@ const { prog } = Astro.props;
           >
             Nivel
           </span>
-          <span class="block text-xs font-semibold text-white mt-0.5">
+          <span class="block text-xs font-semibold text-white mt-0.5 truncate">
             {prog.level}
           </span>
         </div>
-        <div class="border-x border-basic-800">
+        <div class="border-x border-basic-800/80">
           <span
             class="block text-[9px] uppercase font-bold text-basic-400 tracking-wider"
           >
             Duración
           </span>
-          <span class="block text-xs font-semibold text-white mt-0.5">
+          <span class="block text-xs font-semibold text-white mt-0.5 truncate">
             {prog.duration}
           </span>
         </div>
@@ -66,7 +65,7 @@ const { prog } = Astro.props;
           >
             Frecuencia
           </span>
-          <span class="block text-xs font-semibold text-primary mt-0.5">
+          <span class="block text-xs font-semibold text-primary mt-0.5 truncate">
             {prog.frequency}
           </span>
         </div>
@@ -74,17 +73,20 @@ const { prog } = Astro.props;
     </div>
   </div>
 
-  <!-- Footer y Llamada a la Acción de la Tarjeta -->
+  <!-- Footer y Llamada a la Acción de la Tarjeta (Altura Fija Unificada) -->
   <div
-    class="px-6 sm:px-7 pb-6 sm:pb-7 pt-4 border-t border-basic-800 flex items-center justify-between"
+    class="h-[100px] px-5 sm:px-7 py-4 border-t border-basic-800/80 bg-basic-900 flex items-center justify-between z-10 shrink-0"
   >
     <div class="flex items-baseline gap-1">
-      <span class="text-xs font-mono font-bold text-zinc-400">$</span><span
-        class="price-display font-display text-5xl font-bold text-white tracking-tight"
-        >{prog.precio}</span
-      ><span class="text-xs font-mono text-zinc-400 uppercase tracking-wider"
-        >.000 / Mes</span
+      <span class="text-xs font-mono font-bold text-zinc-400">$</span>
+      <span
+        class="price-display font-display text-4xl sm:text-5xl font-bold text-white tracking-tight"
       >
+        {prog.precio}
+      </span>
+      <span class="text-xs font-mono text-zinc-400 uppercase tracking-wider">
+        .000 / Mes
+      </span>
     </div>
 
     <button
@@ -92,7 +94,7 @@ const { prog } = Astro.props;
       data-open-modal={prog.id}
       aria-haspopup="dialog"
       aria-label={`Más información sobre ${prog.title}`}
-      class="flex items-center justify-center gap-2 cursor-pointer text-sm font-semibold text-white/90 hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-basic-800/60"
+      class="flex items-center justify-center gap-2 cursor-pointer text-sm font-semibold text-white/90 hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-basic-800/80 group/btn"
     >
       <span>Más información</span>
       <svg
@@ -105,9 +107,12 @@ const { prog } = Astro.props;
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
-          d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg
+        class="transition-transform group-hover/btn:translate-x-1"
       >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M5 12h14"></path>
+        <path d="M12 5l7 7-7 7"></path>
+      </svg>
     </button>
   </div>
 </div>
