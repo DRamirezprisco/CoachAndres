@@ -31,100 +31,168 @@ const { title = "FORJA TU MEJOR VERSIÓN" } = Astro.props;
     />
 
     <div class="relative z-10 mx-auto max-w-7xl px-6 w-full">
-        <div
-            class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
-        >
-            <!-- COLUMNA IZQUIERDA: Titulares y Llamadas a la acción -->
+        <div class="flex flex-col items-start text-left z-20">
+            <!-- Badge con indicador de estado verde neón -->
             <div
-                class="lg:col-span-6 xl:col-span-7 flex flex-col items-start text-left z-20"
+                class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-basic/80 border border-primary/20 backdrop-blur-md mb-6"
             >
-                <!-- Badge con indicador de estado verde neón -->
-                <div
-                    class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-basic/80 border border-primary/20 backdrop-blur-md mb-6"
+                <span
+                    class="h-2 w-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_#44FF33]"
+                ></span>
+                <span
+                    class="text-xs sm:text-sm font-semibold tracking-wider uppercase text-basic-50"
                 >
-                    <span
-                        class="h-2 w-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_#44FF33]"
-                    ></span>
-                    <span
-                        class="text-xs sm:text-sm font-semibold tracking-wider uppercase"
-                    >
-                        ENTRENADOR PERSONAL CERTIFICADO
-                    </span>
-                </div>
-
-                <!-- Título principal de gran impacto -->
-                <h1
-                    class="font-sans font-black text-5xl sm:text-6xl md:text-7xl xl:text-8xl tracking-tight text-white uppercase leading-[0.92] mb-6"
-                >
-                    FORJA TU <br />
-                    <span class="text-primary text-glow-lime"
-                        >MEJOR VERSIÓN</span
-                    >
-                </h1>
-
-                <!-- Bajada descriptiva -->
-                <p
-                    class="text-base sm:text-lg text-white/75 max-w-xl font-normal leading-relaxed mb-8"
-                >
-                    Entrenamiento personalizado diseñado para ti — tus
-                    objetivos, tu ritmo, tus resultados reales.
-                </p>
-
-                <!-- Botones de acción -->
-                <div class="flex flex-wrap items-center gap-4 sm:gap-6">
-                    <a
-                        href={PERSONAL_DATA.whatsappUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="group inline-flex items-center gap-3 bg-primary text-basic font-black text-xs sm:text-sm uppercase tracking-wider px-7 py-4 rounded-xl shadow-lg shadow-primary/25 hover:bg-primary-400 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
-                    >
-                        <span>RESERVA TU SESIÓN</span>
-                        <svg
-                            class="w-4 h-4 transition-transform group-hover:translate-x-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2.5"
-                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                        </svg>
-                    </a>
-
-                    <a
-                        href="#programas"
-                        class="inline-flex items-center text-xs sm:text-sm font-bold uppercase tracking-widest text-white/80 hover:text-primary transition-colors py-4 px-2"
-                    >
-                        VER PROGRAMAS
-                    </a>
-                </div>
+                    ENTRENADOR PERSONAL CERTIFICADO
+                </span>
             </div>
 
-            <!-- COLUMNA DERECHA: Imagen de Andrés recortada a la cintura + Tarjetas flotantes -->
-            <div
-                class="lg:col-span-6 xl:col-span-5 relative flex flex-col items-center lg:items-end justify-end"
+            <h1
+                class="font-sans font-black text-xl sm:text-6xl xl:text-7xl tracking-tight text-basic-50 uppercase mb-6"
             >
-                <!-- Contenedor del Coach recortado a la cintura (mitad del cuerpo) con desvanecimiento inferior suave -->
-                <div
-                    class="relative w-full max-w-105 sm:max-w-120 lg:max-w-130 h-120 sm:h-145 lg:h-165 overflow-hidden flex items-end justify-center"
+                CONSTRUYE <br />
+                UN FISICO DE ÈLITE. <br />
+                <span class="text-primary text-glow-lime font-serif"
+                    >SUPERA TUS LÌMITES</span
                 >
-                    <img
-                        src="/img/coachSF.webp"
-                        alt={PERSONAL_DATA.name}
-                        fetchpriority="high"
-                        loading="eager"
-                        decoding="async"
-                        class="w-full h-full object-cover object-top filter contrast-[1.05] brightness-[1.02]"
-                        style="mask-image: linear-gradient(to top, transparent 0%, black 16%); -webkit-mask-image: linear-gradient(to top, transparent 0%, black 16%);"
-                    />
+            </h1>
+            <p
+                class="text-base sm:text-lg text-basic-50 max-w-xl leading-relaxed mb-10"
+            >
+                Entrenamiento personalizado diseñado para ti, según tus
+                objetivos y tu ritmo, para conseguir resultados reales, sin
+                rutinas improvisadas ni dietas extremas.
+            </p>
+            <p
+                class="text-base sm:text-lg text-basic-300 max-w-xl font-light italic leading-relaxed mb-6 text-center"
+            >
+                “Mi prioridad es que entrenes con intención, con seguridad y con
+                un plan que puedas sostener en el tiempo.”
+            </p>
 
-                    <!-- Degradado inferior para fundir el corte con el fondo basic (#1C1C1C) -->
-                    <div
-                        class="absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-basic via-basic/80 to-transparent pointer-events-none"
+            <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+                <a
+                    href={PERSONAL_DATA.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group inline-flex items-center gap-3 bg-primary text-basic font-black text-xs sm:text-sm uppercase tracking-wider px-7 py-4 rounded-xl shadow-lg shadow-primary/25 hover:bg-primary-400 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                >
+                    <span>RESERVA TU SESIÓN</span>
+                    <svg
+                        class="w-4 h-4 transition-transform group-hover:translate-x-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
                     >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2.5"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </a>
+                <a
+                    href="#programas"
+                    class="inline-flex items-center text-xs sm:text-sm font-bold uppercase tracking-widest text-white/80 hover:text-primary transition-colors py-4 px-2"
+                >
+                    VER PROGRAMAS
+                </a>
+            </div>
+
+            <!-- Coach -->
+            <div
+                class="absolute top-10 right-10 w-150 flex items-end justify-center"
+            >
+                <img
+                    src="/img/coachSF.webp"
+                    alt={PERSONAL_DATA.name}
+                    fetchpriority="high"
+                    loading="eager"
+                    decoding="async"
+                    class="w-full h-full object-cover object-bottom"
+                />
+
+                <!-- Degradado inferior para fundir el corte con el fondo basic (#1C1C1C) -->
+                <div
+                    class="absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-basic via-basic/80 to-transparent pointer-events-none"
+                >
+                </div>
+            </div>
+        </div>
+
+        <!-- Barra de características / beneficios (recuadro de la referencia) -->
+        <div class="mt-16 sm:mt-24 w-full pt-8 border-t border-white/10 relative z-30">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                <!-- 1. Entrenador Experto -->
+                <div class="flex flex-col items-center text-center px-4 lg:border-r border-white/10">
+                    <div class="mb-3 text-primary">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="9" width="2" height="6" rx="0.5" />
+                            <rect x="5" y="7" width="2.5" height="10" rx="0.5" />
+                            <line x1="7.5" y1="12" x2="16.5" y2="12" />
+                            <rect x="16.5" y="7" width="2.5" height="10" rx="0.5" />
+                            <rect x="20" y="9" width="2" height="6" rx="0.5" />
+                        </svg>
                     </div>
+                    <h3 class="font-sans font-bold text-xs sm:text-sm text-white tracking-wider uppercase mb-1">
+                        ENTRENADOR EXPERTO
+                    </h3>
+                    <p class="text-[11px] sm:text-xs text-white/60">
+                        Certificado y con Experiencia
+                    </p>
+                </div>
+
+                <!-- 2. Plan Personalizado -->
+                <div class="flex flex-col items-center text-center px-4 lg:border-r border-white/10">
+                    <div class="mb-3 text-primary">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="14" height="17" x="5" y="4" rx="2" />
+                            <path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1" />
+                            <line x1="9" x2="15" y1="9" y2="9" />
+                            <line x1="9" x2="15" y1="13" y2="13" />
+                            <line x1="9" x2="13" y1="17" y2="17" />
+                        </svg>
+                    </div>
+                    <h3 class="font-sans font-bold text-xs sm:text-sm text-white tracking-wider uppercase mb-1">
+                        PLAN PERSONALIZADO
+                    </h3>
+                    <p class="text-[11px] sm:text-xs text-white/60">
+                        Adaptado a tus Objetivos
+                    </p>
+                </div>
+
+                <!-- 3. Equipamiento Moderno -->
+                <div class="flex flex-col items-center text-center px-4 lg:border-r border-white/10">
+                    <div class="mb-3 text-primary">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                            <path d="M3.2 12h4.5l2-3.5 2.5 7 2-3.5h6.6" />
+                        </svg>
+                    </div>
+                    <h3 class="font-sans font-bold text-xs sm:text-sm text-white tracking-wider uppercase mb-1">
+                        EQUIPAMIENTO MODERNO
+                    </h3>
+                    <p class="text-[11px] sm:text-xs text-white/60">
+                        Alta Calidad y Seguro
+                    </p>
+                </div>
+
+                <!-- 4. Enfoque en Resultados -->
+                <div class="flex flex-col items-center text-center px-4">
+                    <div class="mb-3 text-primary">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                            <path d="M4 22h16" />
+                            <path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1c0 .55.45 1 1 1h8c.55 0 1-.45 1-1v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34" />
+                            <path d="M6 4h12v6a6 6 0 0 1-12 0V4Z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-sans font-bold text-xs sm:text-sm text-white tracking-wider uppercase mb-1">
+                        ENFOQUE EN RESULTADOS
+                    </h3>
+                    <p class="text-[11px] sm:text-xs text-white/60">
+                        Mide y Alcanza Más
+                    </p>
                 </div>
             </div>
         </div>
