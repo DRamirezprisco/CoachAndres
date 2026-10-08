@@ -72,50 +72,92 @@ import Titulo from "@/components/Titulo.astro";
           conformarte. Mira el video y conoce el método de entrenamiento que
           llevará tu físico al siguiente nivel.
         </p>
+
+        <!-- Botón sutil y atlético para abrir el video desde fuera -->
+        <button
+          type="button"
+          id="cta-open-video-btn"
+          class="group/btn inline-flex items-center gap-3.5 px-6 py-3.5 bg-basic-900/90 hover:bg-primary text-white hover:text-basic-950 border border-primary/50 hover:border-primary text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-300 shadow-xl cursor-pointer active:scale-95"
+        >
+          <span
+            class="w-7 h-7 rounded-full bg-primary/20 group-hover/btn:bg-basic-950 text-primary group-hover/btn:text-primary flex items-center justify-center transition-colors"
+          >
+            <svg class="w-3.5 h-3.5 fill-current translate-x-0.5" viewBox="0 0 24 24">
+              <polygon points="6 3 20 12 6 21 6 3"></polygon>
+            </svg>
+          </span>
+          <span>Ver Video de Presentación</span>
+        </button>
       </div>
 
-      <!-- COLUMNA DERECHA: Card con imagen description.webp y Botón Play central -->
-      <div class="lg:col-span-7 relative">
-        <!-- Contenedor del Video Card -->
+      <!-- COLUMNA DERECHA: Video con encuadres atléticos idénticos a SobreMi.astro y sin redondeo -->
+      <div class="lg:col-span-7 flex justify-center lg:justify-end">
         <div
           id="cta-video-trigger"
-          class="group relative w-full aspect-video sm:aspect-[16/10] lg:aspect-[16/9.5] rounded-2xl overflow-hidden border border-basic-700 hover:border-primary shadow-2xl transition-all duration-500 cursor-pointer bg-basic-950"
+          class="relative w-full group shadow-2xl shadow-black/90 cursor-pointer select-none"
           role="button"
           tabindex="0"
           aria-label="Reproducir video de presentación"
         >
-          <!-- Imagen de portada (description.webp) -->
-          <img
-            src="/img/description.webp"
-            alt={`Presentación de entrenamiento - ${PERSONAL_DATA.name}`}
-            loading="lazy"
-            decoding="async"
-            class="w-full h-full object-cover filter brightness-85 contrast-110 group-hover:scale-105 group-hover:brightness-95 transition-all duration-700 ease-out"
-          />
-
-          <!-- Degradado oscuro cinematográfico -->
+          <!-- Encuadres idénticos a SobreMi.astro con animación de pulso atlético -->
           <div
-            class="absolute inset-0 bg-gradient-to-t from-basic-950/80 via-transparent to-black/30 group-hover:opacity-75 transition-opacity"
+            class="absolute -top-1.25 -left-1.25 sm:-top-1.5 sm:-left-1.5 w-24 sm:w-36 h-24 sm:h-36 border-t-[5px] border-l-[5px] sm:border-t-6 sm:border-l-6 border-primary z-20 pointer-events-none animate-pulse-top"
+          >
+          </div>
+          <div
+            class="absolute -bottom-0.75 -right-0.75 sm:-bottom-1 sm:-right-1 w-14 sm:w-20 h-14 sm:h-20 border-b-[3px] border-r-[3px] sm:border-b-4 sm:border-r-4 border-primary z-20 pointer-events-none animate-pulse-bottom"
           >
           </div>
 
-          <!-- Botón de Play Central con animación de pulso -->
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div class="relative flex items-center justify-center">
-              <!-- Ondas expansivas de pulso -->
-              <span
-                class="absolute w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-primary/20 animate-ping"
-              ></span>
-              <span
-                class="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-primary/30"
-              ></span>
+          <!-- Contenedor cuadrado de la imagen del video (sin redondeo) -->
+          <div
+            class="relative w-full aspect-video sm:aspect-[16/10] lg:aspect-[16/9.5] overflow-hidden bg-basic-950 border border-basic-800 group-hover:border-primary/60 transition-colors duration-500"
+          >
+            <!-- Imagen de portada (description.webp) -->
+            <img
+              src="/img/description.webp"
+              alt={`Presentación de entrenamiento - ${PERSONAL_DATA.name}`}
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover filter brightness-90 contrast-110 group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+            />
 
-              <!-- Círculo principal del botón Play -->
+            <!-- Degradado inferior para fundir el borde de la foto idéntico a SobreMi.astro -->
+            <div
+              class="absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-basic via-basic/40 to-transparent pointer-events-none"
+            >
+            </div>
+
+            <!-- Indicador sutil de video en la esquina inferior izquierda -->
+            <div
+              class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 z-20 flex items-center gap-2.5 px-3.5 py-2 bg-basic-950/85 backdrop-blur-md border border-white/10 group-hover:border-primary/60 transition-colors pointer-events-none shadow-lg"
+            >
               <div
-                class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-primary text-basic-950 flex items-center justify-center shadow-[0_0_35px_rgba(68,255,51,0.65)] group-hover:scale-110 group-hover:shadow-[0_0_50px_rgba(68,255,51,0.9)] transition-all duration-300"
+                class="size-6 rounded-full bg-primary/20 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-basic-950 transition-colors"
               >
                 <svg
-                  class="w-7 h-7 sm:w-8 sm:h-8 fill-basic-950 translate-x-0.5"
+                  class="size-3 fill-current translate-x-0.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                </svg>
+              </div>
+              <span
+                class="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-basic-200 group-hover:text-primary uppercase transition-colors"
+              >
+                VIDEO DE PRESENTACIÓN
+              </span>
+            </div>
+
+            <!-- Icono de play central translúcido y sutil (no se roba el protagonismo ni tapa la imagen) -->
+            <div
+              class="absolute inset-0 flex items-center justify-center pointer-events-none"
+            >
+              <div
+                class="size-14 sm:size-16 rounded-full bg-basic-950/45 backdrop-blur-xs border border-white/20 text-white/90 group-hover:border-primary group-hover:bg-primary/20 group-hover:text-primary group-hover:scale-110 transition-all duration-300 flex items-center justify-center shadow-xl"
+              >
+                <svg
+                  class="w-6 h-6 sm:w-7 sm:h-7 fill-current translate-x-0.5"
                   viewBox="0 0 24 24"
                 >
                   <polygon points="6 3 20 12 6 21 6 3"></polygon>
@@ -158,9 +200,9 @@ import Titulo from "@/components/Titulo.astro";
       </svg>
     </button>
 
-    <!-- Contenedor del Reproductor -->
+    <!-- Contenedor del Reproductor sin redondeo -->
     <div
-      class="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden border border-basic-700 shadow-[0_0_60px_rgba(0,0,0,0.9)] animate-in fade-in zoom-in-95 duration-200"
+      class="relative w-full max-w-5xl aspect-video bg-black overflow-hidden border border-basic-700 shadow-[0_0_60px_rgba(0,0,0,0.9)] animate-in fade-in zoom-in-95 duration-200"
       id="cta-modal-video-wrapper"
     >
       <video
@@ -176,6 +218,40 @@ import Titulo from "@/components/Titulo.astro";
     </div>
   </div>
 </section>
+
+<style>
+  @keyframes pulse-frame-top {
+    0%,
+    100% {
+      opacity: 1;
+      filter: drop-shadow(0 0 16px rgba(68, 255, 51, 0.85));
+    }
+    50% {
+      opacity: 0.15;
+      filter: drop-shadow(0 0 0px transparent);
+    }
+  }
+
+  @keyframes pulse-frame-bottom {
+    0%,
+    100% {
+      opacity: 0.15;
+      filter: drop-shadow(0 0 0px transparent);
+    }
+    50% {
+      opacity: 1;
+      filter: drop-shadow(0 0 14px rgba(68, 255, 51, 0.85));
+    }
+  }
+
+  .animate-pulse-top {
+    animation: pulse-frame-top 2.6s ease-in-out infinite;
+  }
+
+  .animate-pulse-bottom {
+    animation: pulse-frame-bottom 2.6s ease-in-out infinite;
+  }
+</style>
 
 <script>
   function setupCtaVideoModal() {

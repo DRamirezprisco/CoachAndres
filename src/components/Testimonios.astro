@@ -8,7 +8,7 @@ import { TESTIMONIALS_DATA } from "@/constants/testimonials";
 
 <section
   id="testimonios"
-  class="relative overflow-hidden bg-basic min-h-[125vh] sm:min-h-[135vh] lg:min-h-[145vh] py-32 sm:py-44 lg:py-52 flex flex-col items-center justify-center"
+  class="relative overflow-hidden bg-basic min-h-[100vh] sm:min-h-[70vh] lg:min-h-[90vh] py-32 sm:py-44 lg:py-52 flex flex-col items-center justify-center"
 >
   <!-- Fondo y efectos de iluminación -->
   <AmbientGlow />
@@ -49,21 +49,24 @@ import { TESTIMONIALS_DATA } from "@/constants/testimonials";
     </div>
   </div>
 
-  <!-- Textos gigantes de fondo (Capa z-2, por encima de la imagen del gym y con mayor notoriedad) -->
-  <TranslucentText
-    text="FISICO"
-    verticalPosition="top-10 sm:top-14 lg:top-18"
-    opacity="opacity-15 sm:opacity-20"
-    zIndex="z-2"
-  />
+  <div class="w-full max-w-full lg:max-w-9/12 h-190 sm:h-210 lg:h-270 absolute">
+    <!-- Textos gigantes de fondo (Capa z-2, por encima de la imagen del gym y con mayor notoriedad) -->
+    <TranslucentText
+      text="TESTI"
+      verticalPosition="top-0"
+      align="left"
+      opacity="opacity-15 sm:opacity-20"
+      zIndex="z-2"
+    />
 
-  <TranslucentText
-    text="PERFECTO"
-    align="right"
-    verticalPosition="bottom-10 sm:bottom-14 lg:bottom-18"
-    opacity="opacity-15 sm:opacity-20"
-    zIndex="z-2"
-  />
+    <TranslucentText
+      text="MONIOS"
+      align="right"
+      verticalPosition="bottom-10 sm:bottom-14 lg:bottom-18"
+      opacity="opacity-15 sm:opacity-20"
+      zIndex="z-2"
+    />
+  </div>
 
   <!-- Contenido Principal: Carrusel Infinito centrado entre TranslucentText -->
   <div
@@ -73,7 +76,7 @@ import { TESTIMONIALS_DATA } from "@/constants/testimonials";
     <div class="relative group/testimonials-slider w-full">
       <!-- Ventana de Desplazamiento (Viewport) -->
       <div
-        class="overflow-hidden py-4 -mx-3 px-3"
+        class="overflow-hidden py-10 sm:py-12 -my-6 sm:-my-8 -mx-4 px-4"
         id="testimonials-slider-container"
       >
         <div
