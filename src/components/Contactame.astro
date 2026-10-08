@@ -1,1 +1,290 @@
-<section id="contactame" class="h-screen"></section>
+---
+import { SITE_CONFIG } from "@/constants/site";
+const whatsappNumber = SITE_CONFIG.whatsappNumber;
+---
+
+<section
+  id="contactame"
+  class="relative px-5 pt-20 sm:pt-28 pb-6 bg-basic overflow-hidden bg-dots-pattern"
+>
+  <!-- Resplandor verde de alta intensidad centrado -->
+  <div
+    class="absolute -bottom-40 left-1/2 -translate-x-1/2 w-80 sm:w-130 h-80 sm:h-130 bg-primary/15 rounded-full blur-[140px] pointer-events-none"
+  >
+  </div>
+
+  <div
+    class="relative w-full mx-auto max-w-6xl rounded-2xl sm:rounded-3xl bg-basic-950/80 bg-linear-to-t from-primary/20 via-primary/5 to-transparent backdrop-blur-sm border border-white/10 shadow-2xl p-5 sm:p-8 md:p-10 lg:p-12 overflow-hidden"
+    data-reveal="fade-in"
+    data-reveal-delay="100"
+    data-reveal-duration="500ms"
+    data-reveal-group
+  >
+    <div
+      class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10"
+    >
+      <!-- Columna Izquierda: Formulario -->
+      <div class="lg:col-span-7 flex flex-col">
+        <div
+          data-reveal="fade-up"
+          data-reveal-delay="200"
+          data-reveal-duration="400ms"
+        >
+          <h2
+            class="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-2 tracking-tight uppercase"
+          >
+            Envíanos un mensaje
+          </h2>
+          <p
+            class="text-xs sm:text-sm text-gym-dark-text-basic mb-6 font-medium"
+          >
+            Déjanos tus datos y nos pondremos en contacto contigo a la brevedad.
+          </p>
+        </div>
+
+        <form
+          id="contactForm"
+          data-whatsapp={whatsappNumber}
+          method="POST"
+          action="javascript:void(0);"
+          class="flex flex-col gap-3.5 sm:gap-4"
+        >
+          <!-- Campo Nombre -->
+          <div
+            class="relative flex items-center"
+            data-reveal="fade-up"
+            data-reveal-delay="300"
+            data-reveal-duration="400ms"
+          >
+            <input
+              type="text"
+              name="nombre"
+              id="contactNombre"
+              placeholder="Nombre Completo"
+              class="w-full bg-white/10 text-white placeholder-neutral-400 py-3.5 px-4 pr-11 rounded-xl text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all border border-white/5 focus:border-transparent"
+              required
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="size-5 absolute right-4 text-neutral-400 pointer-events-none"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+
+          <!-- Campo Correo -->
+          <div
+            class="relative flex items-center"
+            data-reveal="fade-up"
+            data-reveal-delay="400"
+            data-reveal-duration="400ms"
+          >
+            <input
+              type="email"
+              name="email"
+              id="contactEmail"
+              placeholder="Correo Electrónico"
+              class="w-full bg-white/10 text-white placeholder-neutral-400 py-3.5 px-4 pr-11 rounded-xl text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all border border-white/5 focus:border-transparent"
+              required
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="size-5 absolute right-4 text-neutral-400 pointer-events-none"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+          </div>
+
+          <!-- Campo Teléfono -->
+          <div
+            class="relative flex items-center"
+            data-reveal="fade-up"
+            data-reveal-delay="500"
+            data-reveal-duration="400ms"
+          >
+            <input
+              type="tel"
+              name="telefono"
+              id="contactTelefono"
+              placeholder="Teléfono / WhatsApp"
+              class="w-full bg-white/10 text-white placeholder-neutral-400 py-3.5 px-4 pr-11 rounded-xl text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all border border-white/5 focus:border-transparent"
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="size-5 absolute right-4 text-neutral-400 pointer-events-none"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+              ></path>
+            </svg>
+          </div>
+
+          <!-- Campo Mensaje -->
+          <div
+            class="relative flex items-start"
+            data-reveal="fade-up"
+            data-reveal-delay="600"
+            data-reveal-duration="400ms"
+          >
+            <textarea
+              name="mensaje"
+              id="contactMensaje"
+              rows="4"
+              placeholder="¿Tienes alguna pregunta? Escríbenos, queremos conocerte y acompañarte en tu camino..."
+              class="w-full bg-white/10 text-white placeholder-neutral-400 py-3.5 px-4 pr-11 rounded-xl text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all border border-white/5 focus:border-transparent resize-none min-h-[120px]"
+              required></textarea>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="size-5 absolute right-4 top-3.5 text-neutral-400 pointer-events-none"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 20h9"></path>
+              <path d="16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"
+              ></path>
+            </svg>
+          </div>
+
+          <!-- Mensaje de Estado / Notificación -->
+          <div
+            id="formStatusMessage"
+            class="hidden p-3.5 rounded-xl bg-primary-500/20 border border-primary text-primary text-sm font-semibold text-center transition-all"
+          >
+            ¡Mensaje recibido! Abriendo WhatsApp para conectar contigo...
+          </div>
+
+          <!-- Botón de Envío Brutalista Accesible -->
+          <div
+            class="flex justify-center sm:justify-start items-center pt-2"
+            data-reveal="fade-up"
+            data-reveal-delay="700"
+            data-reveal-duration="400ms"
+          >
+            <button
+              type="submit"
+              class="relative group inline-flex items-center justify-center gap-3 text-basic-50 text-xs sm:text-sm uppercase tracking-wider px-7 py-4 rounded-xl bg-transparent border border-primary transition-all duration-300 hover:bg-primary-700 hover:border-primary-700 hover:text-basic hover:shadow-[0_0_30px_rgba(68,255,51,0.6)] hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Enviar Mensaje
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Columna Derecha: Ilustración del Atleta (Desktop) -->
+      <img
+        src="/img/contacto.webp"
+        alt="Entrenador Gym Tabaku"
+        class="hidden lg:block absolute -right-23 -bottom-20 h-160 object-cover pointer-events-none drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)]"
+        style="mask-image: linear-gradient(to right, transparent 0%, black 40%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%);"
+        loading="lazy"
+        data-reveal="fade-left"
+        data-reveal-delay="850"
+        data-reveal-duration="650ms"
+      />
+      <div
+        class="hidden lg:flex lg:col-span-5 items-end justify-center relative w-full h-full min-h-110 pointer-events-none select-none"
+      >
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    function initContactForm() {
+      const form = document.getElementById("contactForm");
+      if (!form || form.dataset.listenerAttached === "true") return;
+      form.dataset.listenerAttached = "true";
+
+      const statusMessage = document.getElementById("formStatusMessage");
+      const whatsappNumber =
+        form.getAttribute("data-whatsapp") || "573223139467";
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const nombreInput = document.getElementById("contactNombre");
+        const emailInput = document.getElementById("contactEmail");
+        const telefonoInput = document.getElementById("contactTelefono");
+        const mensajeInput = document.getElementById("contactMensaje");
+
+        const nombre = (nombreInput ? nombreInput.value : "").trim();
+        const email = (emailInput ? emailInput.value : "").trim();
+        const telefono = (telefonoInput ? telefonoInput.value : "").trim();
+        const mensaje = (mensajeInput ? mensajeInput.value : "").trim();
+
+        if (!nombre || !email || !mensaje) return;
+
+        const textLines = [
+          "*¡Hola Coach Andres!* 👋",
+          "Quiero informarme sobre tus servicios:",
+          "• *Nombre:* " + nombre,
+          "• *Correo:* " + email,
+          telefono ? "• *Teléfono:* " + telefono : null,
+          mensaje,
+        ]
+          .filter(Boolean)
+          .join("\n");
+
+        const cleanNumber = whatsappNumber.replace(/[^0-9]/g, "");
+        const waUrl =
+          "https://api.whatsapp.com/send?phone=" +
+          cleanNumber +
+          "&text=" +
+          encodeURIComponent(textLines);
+
+        if (statusMessage) {
+          statusMessage.innerHTML =
+            '<div class="flex flex-col items-center gap-1.5 py-1">' +
+            '<p class="font-bold text-primary text-sm">¡Mensaje preparado! Conectando con WhatsApp...</p>' +
+            '<a href="' +
+            waUrl +
+            '" target="_blank" rel="noopener noreferrer" class="underline text-xs text-white/90 hover:text-white transition-colors cursor-pointer">' +
+            "¿No se abrió WhatsApp automáticamente? Haz clic aquí para enviar" +
+            "</a>" +
+            "</div>";
+          statusMessage.classList.remove("hidden");
+        }
+
+        form.reset();
+
+        const newWin = window.open(waUrl, "_blank");
+        if (!newWin || newWin.closed || typeof newWin.closed === "undefined") {
+          window.location.href = waUrl;
+        }
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initContactForm);
+    } else {
+      initContactForm();
+    }
+    document.addEventListener("astro:page-load", initContactForm);
+  })();
+</script>
