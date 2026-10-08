@@ -1,0 +1,149 @@
+---
+import type { TestimonialItem } from "@/constants/testimonials";
+import { PERSONAL_DATA } from "@/constants/personalData";
+
+interface Props {
+  testimonial: TestimonialItem;
+}
+
+const { testimonial } = Astro.props;
+---
+
+<div
+  id={`modal-testimonial-${testimonial.id}`}
+  class="testimonial-modal fixed inset-0 z-50 hidden items-center justify-center p-2.5 sm:p-4 md:p-6 bg-black/85 backdrop-blur-md transition-all duration-300"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby={`modal-title-${testimonial.id}`}
+>
+  <!-- Contenedor del Modal sin necesidad de scroll -->
+  <div
+    class="relative w-full max-w-2xl lg:max-w-3xl bg-basic-900 border border-basic-700 hover:border-primary/50 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[95vh] my-auto animate-in fade-in zoom-in-95 duration-200"
+  >
+    <!-- Botón Cerrar (X) -->
+    <button
+      type="button"
+      data-close-testimonial-modal
+      class="absolute top-2.5 right-2.5 sm:top-3.5 sm:right-3.5 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-basic-950/80 hover:bg-primary text-white hover:text-basic-950 border border-white/10 hover:border-primary flex items-center justify-center transition-all cursor-pointer shadow-lg"
+      aria-label="Cerrar resultados"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-4 h-4 sm:w-4.5 sm:h-4.5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- Contenido del modal dimensionado para caber en pantalla -->
+    <div class="p-3.5 sm:p-5 flex flex-col justify-between overflow-y-auto sm:overflow-hidden">
+      <!-- Encabezado: Título a la izquierda y Transformación Real a la derecha -->
+      <div class="flex items-start sm:items-center justify-between gap-3 mb-2.5 sm:mb-3 pr-10 sm:pr-12">
+        <!-- Título como está -->
+        <div>
+          <h3
+            id={`modal-title-${testimonial.id}`}
+            class="font-sans text-xl sm:text-2xl md:text-3xl font-black uppercase text-white tracking-tight leading-tight"
+          >
+            {testimonial.name}
+            <span class="text-primary text-glow-lime font-serif block text-sm sm:text-base md:text-lg mt-0.5">
+              {testimonial.program}
+            </span>
+          </h3>
+        </div>
+
+        <!-- Transformación Real colocada en la parte derecha -->
+        <div class="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-basic-950 border border-primary/30 shrink-0">
+          <span class="size-1.5 sm:size-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#44FF33]"></span>
+          <span class="text-[9px] sm:text-[11px] font-semibold tracking-wider sm:tracking-widest uppercase text-basic-100 whitespace-nowrap">
+            TRANSFORMACIÓN REAL
+          </span>
+        </div>
+      </div>
+
+      <!-- Imagen del Antes y Después (altura ajustada para evitar scroll) -->
+      <div
+        class="relative w-full rounded-xl sm:rounded-2xl overflow-hidden bg-basic-950 border border-basic-800 flex items-center justify-center p-1.5 sm:p-2.5 mb-2.5 sm:mb-3 shadow-inner"
+      >
+        <img
+          src={testimonial.beforeAfterImage}
+          alt={`Antes y Después de ${testimonial.name}`}
+          loading="lazy"
+          decoding="async"
+          class="max-h-[38vh] sm:max-h-[43vh] md:max-h-[46vh] w-auto max-w-full object-contain rounded-lg filter contrast-105"
+        />
+
+        <!-- Indicadores flotantes de Antes / Después -->
+        <div class="absolute bottom-2.5 sm:bottom-3 left-3 right-3 flex justify-between pointer-events-none px-2 sm:px-4">
+          <span class="px-2.5 py-0.5 sm:py-1 rounded-md bg-basic-950/85 backdrop-blur-md border border-white/20 text-[9px] sm:text-[11px] font-bold uppercase tracking-wider text-white shadow-md">
+            Antes
+          </span>
+          <span class="px-2.5 py-0.5 sm:py-1 rounded-md bg-primary/90 backdrop-blur-md border border-primary text-[9px] sm:text-[11px] font-bold uppercase tracking-wider text-basic-950 shadow-md">
+            Después
+          </span>
+        </div>
+      </div>
+
+      <!-- Fila Inferior compacta: 3 Cajitas de Métricas + Botón de WhatsApp -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 pt-2 border-t border-basic-800/80">
+        <!-- 3 Cajitas compactas -->
+        <div class="grid grid-cols-3 gap-1 sm:gap-2 py-1.5 sm:py-2 px-2.5 sm:px-3 bg-basic-950/80 border border-white/10 rounded-xl text-center flex-1">
+          <div>
+            <span class="block text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-white/50">
+              PESO CORPORAL
+            </span>
+            <span class="block text-[11px] sm:text-xs font-semibold text-primary font-mono leading-tight">
+              {testimonial.peso}
+            </span>
+          </div>
+          <div class="border-x border-white/10">
+            <span class="block text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-white/50">
+              % DE GRASA
+            </span>
+            <span class="block text-[11px] sm:text-xs font-semibold text-primary font-mono leading-tight">
+              {testimonial.imc}
+            </span>
+          </div>
+          <div>
+            <span class="block text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-white/50">
+              TIEMPO EN PROGRAMA
+            </span>
+            <span class="block text-[11px] sm:text-xs font-semibold text-white font-mono leading-tight">
+              {testimonial.time}
+            </span>
+          </div>
+        </div>
+
+        <!-- Botón de WhatsApp -->
+        <a
+          href={PERSONAL_DATA.whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-2 px-4 py-2 sm:py-2.5 rounded-xl bg-primary text-basic-950 hover:bg-primary-400 font-bold text-xs sm:text-sm uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(68,255,51,0.25)] hover:shadow-[0_0_25px_rgba(68,255,51,0.45)] cursor-pointer shrink-0"
+        >
+          <span>Quiero resultados</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-3.5 h-3.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14"></path>
+            <path d="M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,71 +2,428 @@
 import AmbientGlow from "@/components/AmbientGlow.astro";
 import TranslucentText from "@/components/TranslucentText.astro";
 import ItemsTestimonios from "@/components/testimonios/ItemsTestimonios.astro";
+import ModalAntesYDespues from "@/components/testimonios/ModalAntesYDespues.astro";
+import { TESTIMONIALS_DATA } from "@/constants/testimonials";
 ---
 
 <section
-    id="testimonios"
-    class="relative overflow-hidden bg-basic min-h-[125vh] sm:min-h-[135vh] lg:min-h-[145vh] py-40 sm:py-56 lg:py-68 flex items-center justify-center"
+  id="testimonios"
+  class="relative overflow-hidden bg-basic min-h-[125vh] sm:min-h-[135vh] lg:min-h-[145vh] py-32 sm:py-44 lg:py-52 flex flex-col items-center justify-center"
 >
-    <!-- Fondo y efectos de iluminación -->
-    <AmbientGlow />
+  <!-- Fondo y efectos de iluminación -->
+  <AmbientGlow />
 
-    <!-- Resplandor de alta intensidad -->
-    <div
-        class="absolute top-1/3 right-1/4 w-87.5 sm:w-130 h-87.5 sm:h-130 bg-primary/15 rounded-full blur-[140px] pointer-events-none -z-10"
-    >
-    </div>
+  <!-- Resplandor de alta intensidad -->
+  <div
+    class="absolute top-1/3 right-1/4 w-87.5 sm:w-130 h-87.5 sm:h-130 bg-primary/15 rounded-full blur-[140px] pointer-events-none -z-10"
+  >
+  </div>
 
-    <!-- Imagen del gimnasio de fondo, opaca y centrada (Capa z-0) -->
-    <div
-        class="absolute inset-x-0 top-36 sm:top-52 lg:top-64 bottom-36 sm:bottom-52 lg:bottom-64 flex items-center justify-center pointer-events-none z-0 overflow-hidden"
-    >
-        <img
-            src="/img/intento9.webp"
-            alt="Fondo del gimnasio"
-            loading="lazy"
-            decoding="async"
-            class="w-full h-full object-cover object-center opacity-15 sm:opacity-20 filter contrast-125"
-        />
-        <!-- Degradados para fundir suavemente los bordes superior e inferior con el fondo basic (#1C1C1C) -->
-        <div
-            class="absolute inset-x-0 top-0 h-36 sm:h-44 bg-linear-to-b from-basic via-basic/80 to-transparent"
-        >
-        </div>
-        <div
-            class="absolute inset-x-0 bottom-0 h-36 sm:h-44 bg-linear-to-t from-basic via-basic/80 to-transparent"
-        >
-        </div>
-        <div
-            class="absolute inset-y-0 left-0 w-32 bg-linear-to-r from-basic to-transparent"
-        >
-        </div>
-        <div
-            class="absolute inset-y-0 right-0 w-32 bg-linear-to-l from-basic to-transparent"
-        >
-        </div>
-    </div>
-
-    <!-- Textos gigantes de fondo (Capa z-2, por encima de la imagen del gym y con mayor notoriedad) -->
-    <TranslucentText
-        text="FISICO"
-        verticalPosition="top-10 sm:top-14 lg:top-18"
-        opacity="opacity-15 sm:opacity-20"
-        zIndex="z-2"
+  <!-- Imagen del gimnasio de fondo, opaca y centrada (Capa z-0) -->
+  <div
+    class="absolute inset-x-0 top-36 sm:top-52 lg:top-64 bottom-36 sm:bottom-52 lg:bottom-64 flex items-center justify-center pointer-events-none z-0 overflow-hidden"
+  >
+    <img
+      src="/img/intento9.webp"
+      alt="Fondo del gimnasio"
+      loading="lazy"
+      decoding="async"
+      class="w-full h-full object-cover object-center opacity-20 sm:opacity-25 filter contrast-125"
     />
-
-    <TranslucentText
-        text="PERFECTO"
-        align="right"
-        verticalPosition="bottom-10 sm:bottom-14 lg:bottom-18"
-        opacity="opacity-15 sm:opacity-20"
-        zIndex="z-2"
-    />
-
-    <!-- Contenido Principal -->
+    <!-- Degradados para fundir suavemente los bordes superior e inferior con el fondo basic (#1C1C1C) -->
     <div
-        class="relative z-10 mx-auto max-w-7xl px-6 w-full flex justify-center"
+      class="absolute inset-x-0 top-0 h-36 sm:h-44 bg-linear-to-b from-basic via-basic/80 to-transparent"
     >
-        <ItemsTestimonios />
     </div>
+    <div
+      class="absolute inset-x-0 bottom-0 h-36 sm:h-44 bg-linear-to-t from-basic via-basic/80 to-transparent"
+    >
+    </div>
+    <div
+      class="absolute inset-y-0 left-0 w-32 bg-linear-to-r from-basic to-transparent"
+    >
+    </div>
+    <div
+      class="absolute inset-y-0 right-0 w-32 bg-linear-to-l from-basic to-transparent"
+    >
+    </div>
+  </div>
+
+  <!-- Textos gigantes de fondo (Capa z-2, por encima de la imagen del gym y con mayor notoriedad) -->
+  <TranslucentText
+    text="FISICO"
+    verticalPosition="top-10 sm:top-14 lg:top-18"
+    opacity="opacity-15 sm:opacity-20"
+    zIndex="z-2"
+  />
+
+  <TranslucentText
+    text="PERFECTO"
+    align="right"
+    verticalPosition="bottom-10 sm:bottom-14 lg:bottom-18"
+    opacity="opacity-15 sm:opacity-20"
+    zIndex="z-2"
+  />
+
+  <!-- Contenido Principal: Carrusel Infinito centrado entre TranslucentText -->
+  <div
+    class="relative z-10 mx-auto max-w-5xl px-3 sm:px-6 w-full flex flex-col items-center my-auto"
+  >
+    <!-- Contenedor del Slider Infinito -->
+    <div class="relative group/testimonials-slider w-full">
+      <!-- Ventana de Desplazamiento (Viewport) -->
+      <div
+        class="overflow-hidden py-4 -mx-3 px-3"
+        id="testimonials-slider-container"
+      >
+        <div
+          id="testimonials-slider-track"
+          class="flex items-stretch will-change-transform select-none"
+        >
+          {
+            // Triplicamos los elementos para lograr un loop infinito continuo y fluido (igual a Programas.astro)
+            [
+              ...TESTIMONIALS_DATA,
+              ...TESTIMONIALS_DATA,
+              ...TESTIMONIALS_DATA,
+            ].map((testimonio) => (
+              <div class="testimonials-slider-slide w-full shrink-0 px-2 sm:px-4 flex flex-col justify-center items-center">
+                <ItemsTestimonios testimonial={testimonio} />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Controles Inferiores: Dots y Flechas de Navegación idénticos a Programas.astro -->
+    <div
+      class="flex items-center justify-between sm:justify-center gap-6 mt-8 max-w-xs mx-auto"
+    >
+      <!-- Botón Anterior -->
+      <button
+        id="testimonials-slider-prev"
+        type="button"
+        aria-label="Testimonio anterior"
+        class="flex w-10 h-10 rounded-full bg-basic-900/90 text-white hover:text-primary border border-basic-700 hover:border-primary items-center justify-center cursor-pointer active:scale-95 transition-all shadow-xl backdrop-blur-md"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path d="M15 18l-6-6 6-6"></path>
+        </svg>
+      </button>
+
+      <!-- Indicadores de Paginación (Dots) -->
+      <div class="flex items-center gap-2.5" id="testimonials-slider-dots">
+        {
+          TESTIMONIALS_DATA.map((item, index) => (
+            <button
+              type="button"
+              data-testimonials-dot-index={index}
+              aria-label={`Ir al testimonio de ${item.name}`}
+              class={`testimonials-slider-dot h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                index === 0
+                  ? "w-8 bg-primary shadow-[0_0_10px_rgba(68,255,51,0.5)]"
+                  : "w-2.5 bg-basic-700 hover:bg-basic-600"
+              }`}
+            />
+          ))
+        }
+      </div>
+
+      <!-- Botón Siguiente -->
+      <button
+        id="testimonials-slider-next"
+        type="button"
+        aria-label="Testimonio siguiente"
+        class="flex w-10 h-10 rounded-full bg-basic-900/90 text-white hover:text-primary border border-basic-700 hover:border-primary items-center justify-center cursor-pointer active:scale-95 transition-all shadow-xl backdrop-blur-md"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path d="M9 18l6-6-6-6"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Ventanas modales de Antes y Después para cada testimonio -->
+  {TESTIMONIALS_DATA.map((item) => <ModalAntesYDespues testimonial={item} />)}
 </section>
+
+<script>
+  function setupTestimonialsSlider() {
+    const track = document.getElementById(
+      "testimonials-slider-track",
+    ) as HTMLElement | null;
+    const container = document.getElementById("testimonials-slider-container");
+    const prevBtn = document.getElementById("testimonials-slider-prev");
+    const nextBtn = document.getElementById("testimonials-slider-next");
+    const dots = document.querySelectorAll(".testimonials-slider-dot");
+
+    if (!track || !container) return;
+
+    const slides = track.querySelectorAll(".testimonials-slider-slide");
+    const originalCount = dots.length;
+    if (originalCount === 0 || slides.length === 0) return;
+
+    // Empezamos en el segundo set (el central)
+    let currentIndex = originalCount;
+    let isAnimating = false;
+    let autoplayTimer: ReturnType<typeof setInterval> | null = null;
+
+    function getSlideWidth(): number {
+      const firstSlide = slides[0] as HTMLElement;
+      return firstSlide ? firstSlide.getBoundingClientRect().width : 0;
+    }
+
+    function updateDots() {
+      const activeDotIndex =
+        ((currentIndex % originalCount) + originalCount) % originalCount;
+      dots.forEach((dot, idx) => {
+        if (idx === activeDotIndex) {
+          dot.classList.remove("w-2.5", "bg-basic-700");
+          dot.classList.add(
+            "w-8",
+            "bg-primary",
+            "shadow-[0_0_10px_rgba(68,255,51,0.5)]",
+          );
+        } else {
+          dot.classList.remove(
+            "w-8",
+            "bg-primary",
+            "shadow-[0_0_10px_rgba(68,255,51,0.5)]",
+          );
+          dot.classList.add("w-2.5", "bg-basic-700");
+        }
+      });
+    }
+
+    function setPosition(animate = true) {
+      if (!track) return;
+      const width = getSlideWidth();
+      if (animate) {
+        track.style.transition =
+          "transform 500ms cubic-bezier(0.25, 1, 0.5, 1)";
+      } else {
+        track.style.transition = "none";
+      }
+      track.style.transform = `translate3d(${-currentIndex * width}px, 0, 0)`;
+      updateDots();
+    }
+
+    // Inicializar posición sin animación
+    setPosition(false);
+
+    function nextSlide() {
+      if (isAnimating) return;
+      isAnimating = true;
+      currentIndex++;
+      setPosition(true);
+      safetyUnlock();
+    }
+
+    function prevSlide() {
+      if (isAnimating) return;
+      isAnimating = true;
+      currentIndex--;
+      setPosition(true);
+      safetyUnlock();
+    }
+
+    function safetyUnlock() {
+      setTimeout(() => {
+        isAnimating = false;
+      }, 550);
+    }
+
+    // Manejar el salto invisible del loop infinito al terminar la transición
+    track.addEventListener("transitionend", () => {
+      isAnimating = false;
+      if (!track) return;
+
+      // Si pasamos al set 3 (derecha), reseteamos al set 2
+      if (currentIndex >= originalCount * 2) {
+        currentIndex = currentIndex - originalCount;
+        setPosition(false);
+      }
+      // Si retrocedemos al set 1 (izquierda), reseteamos al set 2
+      else if (currentIndex < originalCount) {
+        currentIndex = currentIndex + originalCount;
+        setPosition(false);
+      }
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      nextSlide();
+      resetAutoplay();
+    });
+    prevBtn?.addEventListener("click", () => {
+      prevSlide();
+      resetAutoplay();
+    });
+
+    // Clic en dots
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        if (isAnimating) return;
+        const targetIndex = Number(
+          dot.getAttribute("data-testimonials-dot-index"),
+        );
+        currentIndex = originalCount + targetIndex;
+        setPosition(true);
+        resetAutoplay();
+      });
+    });
+
+    // Soporte para gestos táctiles (Swipe en móvil)
+    let startX = 0;
+    let currentX = 0;
+    let isTouching = false;
+
+    track.addEventListener(
+      "touchstart",
+      (e) => {
+        startX = e.touches[0].clientX;
+        currentX = startX;
+        isTouching = true;
+        stopAutoplay();
+      },
+      { passive: true },
+    );
+
+    track.addEventListener(
+      "touchmove",
+      (e) => {
+        if (!isTouching) return;
+        currentX = e.touches[0].clientX;
+      },
+      { passive: true },
+    );
+
+    track.addEventListener("touchend", () => {
+      if (!isTouching) return;
+      isTouching = false;
+      const diffX = startX - currentX;
+      if (Math.abs(diffX) > 45) {
+        if (diffX > 0) nextSlide();
+        else prevSlide();
+      }
+      startAutoplay();
+    });
+
+    // Ajustar en redimensionamiento de pantalla
+    window.addEventListener("resize", () => {
+      setPosition(false);
+    });
+
+    // Autoplay continuo cada 6 segundos con pausa si hay un modal abierto
+    function startAutoplay() {
+      stopAutoplay();
+      autoplayTimer = setInterval(() => {
+        const hasOpenModal = document.querySelector(".testimonial-modal.flex");
+        if (!hasOpenModal) {
+          nextSlide();
+        }
+      }, 6000);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    }
+
+    function resetAutoplay() {
+      stopAutoplay();
+      startAutoplay();
+    }
+
+    container.addEventListener("mouseenter", stopAutoplay);
+    container.addEventListener("mouseleave", startAutoplay);
+    startAutoplay();
+  }
+
+  function setupTestimonialModals() {
+    const openButtons = document.querySelectorAll(
+      "[data-open-testimonial-modal]",
+    );
+    const closeButtons = document.querySelectorAll(
+      "[data-close-testimonial-modal]",
+    );
+    const modals = document.querySelectorAll(".testimonial-modal");
+
+    function openModal(id: string) {
+      const modal = document.getElementById(`modal-testimonial-${id}`);
+      if (!modal) return;
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      document.body.classList.add("overflow-hidden");
+    }
+
+    function closeModal(modal: Element) {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      const anyOpen = Array.from(modals).some((m) =>
+        m.classList.contains("flex"),
+      );
+      if (!anyOpen) {
+        document.body.classList.remove("overflow-hidden");
+      }
+    }
+
+    openButtons.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const id = btn.getAttribute("data-open-testimonial-modal");
+        if (id) openModal(id);
+      });
+    });
+
+    closeButtons.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const modal = btn.closest(".testimonial-modal");
+        if (modal) closeModal(modal);
+      });
+    });
+
+    modals.forEach((modal) => {
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          closeModal(modal);
+        }
+      });
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        modals.forEach((modal) => {
+          if (modal.classList.contains("flex")) {
+            closeModal(modal);
+          }
+        });
+      }
+    });
+  }
+
+  function init() {
+    setupTestimonialsSlider();
+    setupTestimonialModals();
+  }
+
+  init();
+  document.addEventListener("astro:after-swap", init);
+</script>

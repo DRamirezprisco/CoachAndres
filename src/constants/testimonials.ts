@@ -1,4 +1,5 @@
 export interface TestimonialItem {
+    id: string;
     image: string;
     name: string;
     text: string;
@@ -6,53 +7,52 @@ export interface TestimonialItem {
     peso: string;
     imc: string;
     program: string;
-
+    beforeAfterImage: string;
 }
 
 export const TESTIMONIALS_DATA: TestimonialItem[] = [
     {
+        id: "juana-perez",
         image: "/img/testimonios/testimonio1.webp",
-        name: "Maria Rodriguez",
-        program: "hipertrofia",
-        text: "En solo 4 meses logré bajar 4 kg de forma saludable y constante. Lo que más me gustó fue el acompañamiento de los profesores y el ambiente tan familiar del gimnasio. Hoy me siento con más energía, confianza y motivación para seguir avanzando",
-        time: "3 meses",
-        peso: "96kg-91kg",
-        imc: "30%-27%",
+        name: "Juana Pérez",
+        program: "Recomposición Corporal",
+        text: "Mi objetivo no era solo bajar de peso, sino transformar mi físico por completo. Con el plan personalizado y el acompañamiento constante, logré perder grasa y aumentar masa muscular. ¡El cambio físico y mental ha sido extraordinario!",
+        time: "6 meses",
+        peso: "96kg → 82kg",
+        imc: "29% → 14%",
+        beforeAfterImage: "/img/testimonios/antesYDespues1.avif",
     },
     {
+        id: "andres-martinez",
         image: "/img/testimonios/testimonio2.webp",
-        name: "Andres Martinez",
-        program: "hipertrofia",
-        text: "No buscaba resultados rápidos, buscaba un cambio real. En 4 meses logré bajar 4 kg, sentirme más saludable y recuperar la confianza en mí mismo. Lo mejor ha sido contar con un equipo que siempre está dispuesto a apoyar y motivar",
-        time: "3 meses",
-        peso: "96kg-91kg",
-        imc: "30%-27%",
+        name: "Andrés Martínez",
+        program: "Hipertrofia Muscular",
+        text: "Buscaba ganar fuerza y volumen sin perder movilidad. Gracias a la programación científica y la disciplina guiada, alcancé mi mejor versión física y superé mis marcas en cada levantamiento.",
+        time: "8 meses",
+        peso: "72kg → 83kg",
+        imc: "18% → 11%",
+        beforeAfterImage: "/img/testimonios/antesYDespues2.avif",
     },
     {
+        id: "carolina-gomez",
         image: "/img/testimonios/testimonio3.webp",
-        name: "Carolina Perez",
-        program: "definicion",
-        text: "Más que perder kg, gané salud, disciplina y confianza. Cada entrenamiento me acercó a mis objetivos y me hizo sentir mejor conmigo, baje mas de 10 kg y hoy me siento bien",
+        name: "Carolina Gómez",
+        program: "Definición Extrema",
+        text: "Más que perder kilos, gané salud, constancia y seguridad en mí misma. Cada entrenamiento me retó a superar mis límites y logré una tonificación que jamás creí posible.",
         time: "5 meses",
-        peso: "96kg-91kg",
-        imc: "30%-27%",
+        peso: "68kg → 59kg",
+        imc: "26% → 15%",
+        beforeAfterImage: "/img/testimonios/antesYDespues3.jpg",
     },
     {
+        id: "daniela-ramirez",
         image: "/img/testimonios/testimonio4.webp",
-        name: "Ewduar Gomez",
-        program: "funcional",
-        text: "Entrar al gimnasio fue una de las mejores decisiones que tomé este año. En 4 meses bajé 4 kg, mejoré mi resistencia y recuperé hábitos que había dejado de lado. Cada entrenamiento me acercó un poco más a mis metas.",
+        name: "Daniela Ramírez",
+        program: "Acondicionamiento Funcional",
+        text: "Entrar al gimnasio fue la mejor decisión para mi bienestar. Mejoré mi resistencia, agilidad y vitalidad diaria. Ahora entreno con pasión y los resultados se notan todos los días.",
         time: "7 meses",
-        peso: "96kg-91kg",
-        imc: "30%-27%",
-    },
-    {
-        image: "/img/testimonios/testimonio5.webp",
-        name: "Daniela Ramirez",
-        program: "definicion",
-        text: "Logré bajar 4 kg de manera saludable y mejorar mi condición física. El acompañamiento de los entrenadores y el ambiente del gimnasio fueron clave para mantener la constancia. Hoy me siento más fuerte, con más energía y motivada para seguir avanzando",
-        time: "9 meses",
-        peso: "96kg-91kg",
-        imc: "30%-27%",
+        peso: "74kg → 65kg",
+        imc: "28% → 16%",
+        beforeAfterImage: "/img/testimonios/antesYDespues4.jpg",
     },
 ];

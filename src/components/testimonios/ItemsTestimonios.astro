@@ -1,27 +1,242 @@
 ---
-import { PERSONAL_DATA } from "@/constants/personalData";
+import Titulo from "@/components/Titulo.astro";
+import type { TestimonialItem } from "@/constants/testimonials";
 
 interface Props {
-    image?: string;
-    badge1?: string;
-    badge2?: string;
-    line1?: string;
-    line2?: string;
-    lineHighlight?: string;
-    ctaText?: string;
-    ctaUrl?: string;
+  testimonial?: TestimonialItem;
 }
 
-const {
-    image = "/img/testimonios.webp",
-    badge1 = "GIMNASIO",
-    badge2 = "50%",
-    line1 = "COMIENZA",
-    line2 = "A ENTRENAR",
-    lineHighlight = "HOY MISMO!",
-    ctaText = "ÚNETE",
-    ctaUrl = PERSONAL_DATA.whatsappUrl,
-} = Astro.props;
+const { testimonial } = Astro.props;
+
+const item: TestimonialItem = testimonial ?? {
+  id: "juana-perez",
+  image: "/img/testimonios/testimonio1.webp",
+  name: "Juana Pérez",
+  program: "Recomposición Corporal",
+  text: "Mi objetivo no era solo bajar de peso, sino transformar mi físico por completo. Con el plan personalizado y el acompañamiento constante, logré perder grasa y aumentar masa muscular. ¡El cambio físico y mental ha sido extraordinario!",
+  time: "6 meses",
+  peso: "96kg → 82kg",
+  imc: "29% → 14%",
+  beforeAfterImage: "/img/testimonios/antesYDespues1.avif",
+};
 ---
 
-<div></div>
+<div
+  class="relative w-full max-w-4xl mx-auto rounded-3xl overflow-hidden border border-white/10 hover:border-primary/60 bg-basic-900/40 backdrop-blur-xl transition-all duration-500 ease-out group shadow-2xl hover:shadow-[0_0_50px_rgba(68,255,51,0.2)] hover:scale-[1.02] will-change-transform min-h-[500px] sm:min-h-[530px] md:min-h-[560px] flex flex-col justify-between p-6 sm:p-8 md:p-10 select-none"
+>
+  <!-- IMAGEN AL FONDO DE LA CARD CON EFECTO DE TRANSPARENCIA DE DERECHA A IZQUIERDA -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden select-none -z-10">
+    <img
+      src={item.image}
+      alt={`Testimonio de ${item.name}`}
+      loading="lazy"
+      decoding="async"
+      class="w-full h-full object-cover object-[78%_center] sm:object-[75%_center] md:object-[80%_center] opacity-75 sm:opacity-85 filter contrast-110 brightness-95 group-hover:scale-105 transition-transform duration-700 ease-out"
+      style="mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.85) 45%, rgba(0, 0, 0, 0) 95%); -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.85) 45%, rgba(0, 0, 0, 0) 95%);"
+    />
+    <!-- Degradado complementario para contraste y transición suave -->
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-basic-950/95 via-basic-950/60 to-transparent pointer-events-none"
+    >
+    </div>
+  </div>
+
+  <!-- Polígono angular translúcido con desenfoque de fondo idéntico a la imagen de referencia -->
+  <div
+    class="absolute inset-y-0 left-0 w-full sm:w-[65%] md:w-[58%] bg-white/[0.03] backdrop-blur-md pointer-events-none -z-5 [clip-path:polygon(0_0,85%_0,62%_100%,0_100%)] border-r border-white/10"
+  >
+  </div>
+
+  <!-- Resplandor verde ambiental interior detrás del atleta -->
+  <div
+    class="absolute -right-6 sm:right-4 top-1/2 -translate-y-1/2 size-72 sm:size-96 bg-primary/15 rounded-full blur-[100px] pointer-events-none group-hover:bg-primary/25 transition-all duration-700 -z-5"
+  >
+  </div>
+
+  <!-- Detalles de esquinas atléticas dinámicas -->
+  <div
+    class="absolute top-0 left-0 w-12 sm:w-16 h-12 sm:h-16 border-t-2 border-l-2 border-primary/40 group-hover:border-primary transition-colors duration-500 pointer-events-none rounded-tl-3xl z-20"
+  >
+  </div>
+  <div
+    class="absolute bottom-0 right-0 w-12 sm:w-16 h-12 sm:h-16 border-b-2 border-r-2 border-primary/20 group-hover:border-primary/60 transition-colors duration-500 pointer-events-none rounded-br-3xl z-20"
+  >
+  </div>
+
+  <!-- INFORMACIÓN COMPLETA SOBRE LA IMAGEN (Respetando la ubicación de la persona a la derecha) -->
+  <div
+    class="relative z-10 max-w-lg md:max-w-xl flex flex-col justify-between h-full"
+  >
+    <!-- Encabezado con Tag, Título y Subtítulo -->
+    <div class="mb-4">
+      <div
+        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-basic-950/80 border border-primary/30 backdrop-blur-md mb-3 sm:mb-4 shadow-sm"
+      >
+        <span
+          class="size-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#44FF33]"
+        ></span>
+        <span
+          class="text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-basic-50"
+        >
+          CASO DE ÉXITO
+        </span>
+      </div>
+
+      <!-- Título con el nombre y subtítulo con el programa usando Titulo.astro -->
+      <Titulo
+        title={item.name}
+        subtitle={item.program}
+        class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-3 sm:mb-4 leading-none"
+      />
+
+      <!-- Breve descripción en español del testimonio -->
+      <div class="relative max-w-md sm:max-w-lg">
+        <p
+          class="text-basic-200 text-xs sm:text-sm md:text-base font-normal leading-relaxed italic"
+        >
+          "{item.text}"
+        </p>
+      </div>
+    </div>
+
+    <!-- Tres cajitas con las métricas como en la segunda imagen de referencia -->
+    <div class="mb-4">
+      <div
+        class="grid grid-cols-3 gap-1.5 sm:gap-3 py-3 sm:py-3.5 px-2.5 sm:px-4 bg-basic-950/70 border border-white/10 rounded-xl backdrop-blur-md max-w-lg shadow-lg"
+      >
+        <!-- Caja 1: Peso Corporal -->
+        <div class="flex flex-col items-center text-center">
+          <div class="text-primary mb-1">
+            <svg
+              class="size-4 sm:size-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m6.5 6.5 11 11"></path>
+              <path d="m21 21-1-1"></path>
+              <path d="m3 3 1 1"></path>
+              <path d="m18 22 4-4"></path>
+              <path d="m2 6 4-4"></path>
+              <path d="m3 10 7-7"></path>
+              <path d="m14 21 7-7"></path>
+            </svg>
+          </div>
+          <span
+            class="text-[9px] sm:text-[11px] font-bold uppercase tracking-wider text-white"
+          >
+            PESO CORPORAL
+          </span>
+          <span
+            class="text-[10px] sm:text-xs font-semibold text-primary mt-0.5 font-mono"
+          >
+            {item.peso}
+          </span>
+        </div>
+
+        <!-- Caja 2: % de Grasa -->
+        <div
+          class="flex flex-col items-center text-center border-x border-white/10 px-1"
+        >
+          <div class="text-primary mb-1">
+            <svg
+              class="size-4 sm:size-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+              ></path>
+              <path d="M12 5 9.04 11l6.92 0L12 17"></path>
+            </svg>
+          </div>
+          <span
+            class="text-[9px] sm:text-[11px] font-bold uppercase tracking-wider text-white"
+          >
+            % DE GRASA
+          </span>
+          <span
+            class="text-[10px] sm:text-xs font-semibold text-primary mt-0.5 font-mono"
+          >
+            {item.imc}
+          </span>
+        </div>
+
+        <!-- Caja 3: Tiempo en Programa -->
+        <div class="flex flex-col items-center text-center">
+          <div class="text-primary mb-1">
+            <svg
+              class="size-4 sm:size-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <span
+            class="text-[9px] sm:text-[11px] font-bold uppercase tracking-wider text-white"
+          >
+            TIEMPO EN PROGRAMA
+          </span>
+          <span
+            class="text-[10px] sm:text-xs font-semibold text-primary mt-0.5 font-mono"
+          >
+            {item.time}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- En la parte de abajo a la derecha: Botón/Enlace "Ver resultados" que abre el modal -->
+    <div
+      class="flex items-center justify-between pt-3 border-t border-white/10 max-w-lg mt-auto"
+    >
+      <div class="flex items-center gap-1.5 text-white/60">
+        <span class="size-1.5 rounded-full bg-primary animate-pulse"></span>
+        <span
+          class="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-basic-300"
+        >
+          Transformación Real
+        </span>
+      </div>
+
+      <button
+        type="button"
+        data-open-testimonial-modal={item.id}
+        aria-haspopup="dialog"
+        aria-label={`Ver resultados del antes y después de ${item.name}`}
+        class="flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm font-semibold text-white/90 hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-basic-800/80 group/btn border border-transparent hover:border-primary/40 shadow-sm"
+      >
+        <span>Ver resultados</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="transition-transform group-hover/btn:translate-x-1"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 12h14"></path>
+          <path d="M12 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
