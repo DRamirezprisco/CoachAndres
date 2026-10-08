@@ -1,0 +1,78 @@
+---
+import { SOCIAL_INSTAGRAM } from "@/constants/social";
+
+// Las 6 publicaciones destacadas de Instagram
+const INSTAGRAM_POSTS = SOCIAL_INSTAGRAM;
+// Duplicamos 4 veces para garantizar que en cualquier resolución (incluso monitores 4K)
+// el carrusel sea 100% continuo e infinito sin saltos ni espacios en blanco
+const duplicatedPosts = [
+  ...INSTAGRAM_POSTS,
+  ...INSTAGRAM_POSTS,
+  ...INSTAGRAM_POSTS,
+  ...INSTAGRAM_POSTS,
+];
+---
+
+<section
+  id="social"
+  class="relative bg-basic overflow-hidden"
+>
+  <!-- Contenedor del Carrusel Infinito con Efecto Desvanecido en Bordes -->
+  <div class="relative w-full overflow-hidden">
+    <!-- Pista del Carrusel (Animación lenta de Izquierda a Derecha) -->
+    <div class="animate-marquee-ltr flex items-center">
+      {
+        duplicatedPosts.map((post, index) => (
+          <a
+            href={post.post}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Ver foto ${index + 1} en Instagram`}
+            class="group relative shrink-0 w-60 h-80 sm:w-72 sm:h-96 overflow-hidden border border-basic-800/80 bg-basic-950 shadow-2xl transition-all duration-500 hover:border-primary/80 hover:shadow-[0_0_30px_rgba(68,255,51,0.3)] hover:-translate-y-2 cursor-pointer block select-none"
+          >
+            <!-- Imagen del Post -->
+            <img
+              src={post.img}
+              alt={`instagram post ${index + 1}`}
+              loading="lazy"
+              draggable="false"
+              class="w-full h-full object-cover object-center"
+            />
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Animación continua de izquierda a derecha (LTR) */
+  @keyframes marquee-ltr {
+    0% {
+      transform: translate3d(-50%, 0, 0);
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .animate-marquee-ltr {
+    display: flex;
+    width: max-content;
+    animation: marquee-ltr 45s linear infinite;
+    will-change: transform;
+  }
+
+  /* Pausa suave de la animación al pasar el cursor */
+  .animate-marquee-ltr:hover {
+    animation-play-state: paused;
+  }
+
+  /* Respeto por preferencias de reducción de movimiento */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee-ltr {
+      animation: none;
+      overflow-x: auto;
+    }
+  }
+</style>
