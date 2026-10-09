@@ -8,7 +8,7 @@ import { TESTIMONIALS_DATA } from "@/constants/testimonials";
 
 <section
   id="testimonios"
-  class="relative bg-basic min-h-100 py-25 sm:py-34 lg:py-40 flex flex-col items-center justify-center"
+  class="relative bg-basic min-h-100 py-25 sm:py-34 lg:py-40 flex flex-col items-center justify-center overflow-hidden max-w-full [contain:paint]"
 >
   <!-- Fondo y efectos de iluminación -->
   <AmbientGlow />
@@ -49,7 +49,7 @@ import { TESTIMONIALS_DATA } from "@/constants/testimonials";
     </div>
   </div>
 
-  <div class="w-full max-w-full lg:max-w-9/12 h-190 sm:h-210 lg:h-270 absolute">
+  <div class="w-full max-w-full lg:max-w-9/12 h-190 sm:h-210 lg:h-270 absolute overflow-hidden pointer-events-none">
     <!-- Textos gigantes de fondo (Capa z-2, por encima de la imagen del gym y con mayor notoriedad) -->
     <TranslucentText
       text="TESTI"

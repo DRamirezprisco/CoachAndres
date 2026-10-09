@@ -10,18 +10,18 @@ const youtubeUrl = SOCIAL.find((s) => s.name === "Youtube")?.url || "#";
 const tiktokUrl = SOCIAL.find((s) => s.name === "TikTok")?.url || "#";
 ---
 
-<section id="sobre-mi" class="relative overflow-hidden bg-basic py-20 lg:py-28">
+<section id="sobre-mi" class="relative overflow-hidden max-w-full [contain:paint] bg-basic py-20 lg:py-28">
     <!-- Fondo y efectos de iluminación -->
     <AmbientGlow />
 
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div
-            class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center"
+            class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center w-full"
         >
             <!-- COLUMNA IZQUIERDA: Fotografía atlética de Andrés (andres2.webp) -->
-            <div class="lg:col-span-5 flex justify-center lg:justify-start">
+            <div class="lg:col-span-5 flex justify-center lg:justify-start w-full min-w-0">
                 <div
-                    class="relative w-full max-w-110 group shadow-2xl shadow-black/90"
+                    class="relative w-full max-w-full sm:max-w-110 group shadow-2xl shadow-black/90"
                 >
                     <!-- Encuadres -->
                     <div
@@ -52,7 +52,7 @@ const tiktokUrl = SOCIAL.find((s) => s.name === "TikTok")?.url || "#";
             </div>
 
             <!-- COLUMNA DERECHA: Biografía, métricas y videos -->
-            <div class="lg:col-span-7 flex flex-col justify-center">
+            <div class="lg:col-span-7 flex flex-col justify-center w-full min-w-0">
                 <h2
                     class="font-black text-4xl sm:text-5xl lg:text-6xl text-primary uppercase tracking-tight my-2"
                 >
@@ -61,16 +61,16 @@ const tiktokUrl = SOCIAL.find((s) => s.name === "TikTok")?.url || "#";
 
                 <!-- Barra de métricas con líneas divisorias -->
                 <div
-                    class="grid grid-cols-3 gap-4 sm:gap-6 py-5 border-y border-white/10 my-6 max-w-xl"
+                    class="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 py-5 border-y border-white/10 my-6 max-w-xl w-full"
                 >
                     <div>
                         <span
-                            class="block text-[11px] sm:text-xs text-white/50 uppercase tracking-widest font-semibold mb-1"
+                            class="block text-[10px] sm:text-xs text-white/50 uppercase tracking-wider font-semibold mb-1"
                         >
                             EDAD
                         </span>
                         <span
-                            class="text-2xl sm:text-3xl font-sans font-black text-white"
+                            class="text-xl sm:text-2xl lg:text-3xl font-sans font-black text-white whitespace-nowrap"
                         >
                             28 años
                         </span>
@@ -78,12 +78,12 @@ const tiktokUrl = SOCIAL.find((s) => s.name === "TikTok")?.url || "#";
 
                     <div>
                         <span
-                            class="block text-[11px] sm:text-xs text-white/50 uppercase tracking-widest font-semibold mb-1"
+                            class="block text-[10px] sm:text-xs text-white/50 uppercase tracking-wider font-semibold mb-1"
                         >
-                            AÑOS DE EXPERIENCIA
+                            AÑOS DE EXP.
                         </span>
                         <span
-                            class="text-2xl sm:text-3xl font-sans font-black text-basic-50"
+                            class="text-xl sm:text-2xl lg:text-3xl font-sans font-black text-basic-50 whitespace-nowrap"
                         >
                             + {PERSONAL_DATA.experienceYear}
                         </span>
@@ -91,12 +91,12 @@ const tiktokUrl = SOCIAL.find((s) => s.name === "TikTok")?.url || "#";
 
                     <div>
                         <span
-                            class="block text-[11px] sm:text-xs text-white/50 uppercase tracking-widest font-semibold mb-1"
+                            class="block text-[10px] sm:text-xs text-white/50 uppercase tracking-wider font-semibold mb-1"
                         >
-                            Clientes Atendidos
+                            CLIENTES
                         </span>
                         <span
-                            class="text-2xl sm:text-3xl font-sans font-black text-white"
+                            class="text-xl sm:text-2xl lg:text-3xl font-sans font-black text-white whitespace-nowrap"
                         >
                             {PERSONAL_DATA.clientes}
                         </span>
