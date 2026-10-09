@@ -15,14 +15,15 @@ const defaultMessage = `¡Hola ${PERSONAL_DATA.name}! Me gustaría comunicarme c
 const whatsappHref = `https://wa.me/${fullPhone}?text=${encodeURIComponent(defaultMessage)}`;
 ---
 
-<div class="fixed right-5 sm:right-6 bottom-5 sm:bottom-6 z-50 flex items-center gap-2.5 sm:gap-3">
+<div class="fixed right-5 sm:right-6 bottom-5 sm:bottom-6 z-50 flex items-center gap-2.5 sm:gap-3 pointer-events-none">
   <!-- Botón Flotante de WhatsApp (A la izquierda) -->
   <a
+    id="floating-whatsapp-btn"
     href={whatsappHref}
     target="_blank"
     rel="noopener noreferrer"
     aria-label={`Contactar a ${PERSONAL_DATA.name} por WhatsApp`}
-    class="relative group flex h-13 w-13 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-basic-950/90 text-primary border border-primary/40 backdrop-blur-md shadow-2xl shadow-black/80 transition-all duration-300 hover:bg-primary hover:text-basic-950 hover:border-primary hover:scale-110 hover:shadow-[0_0_25px_rgba(68,255,51,0.5)] active:scale-95 cursor-pointer"
+    class="relative group flex h-13 w-13 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-basic-950/90 text-primary border border-primary/40 backdrop-blur-md shadow-2xl shadow-black/80 transition-all duration-300 opacity-100 translate-y-0 scale-100 pointer-events-auto hover:bg-primary hover:text-basic-950 hover:border-primary hover:scale-110 hover:shadow-[0_0_25px_rgba(68,255,51,0.5)] active:scale-95 cursor-pointer"
   >
     <!-- Tooltip descriptivo en hover para desktop -->
     <span
@@ -100,11 +101,28 @@ const whatsappHref = `https://wa.me/${fullPhone}?text=${encodeURIComponent(defau
     const progressCircle = document.getElementById(
       "progress-circle",
     ) as SVGCircleElement | null;
+    const whatsappBtn = document.getElementById("floating-whatsapp-btn");
+    const footer = document.getElementById("footer") || document.querySelector("footer");
 
     if (!button || !progressCircle) return;
 
     // Radio r = 16 => Circunferencia = 2 * PI * 16 ≈ 100.53
     const circumference = 100.53;
+
+    const checkFooterOverlap = () => {
+      if (!whatsappBtn || !footer) return;
+      const footerRect = footer.getBoundingClientRect();
+      // Ocultar si el footer entra o está muy cerca del viewport
+      const isNearFooter = footerRect.top <= window.innerHeight + 30;
+
+      if (isNearFooter) {
+        whatsappBtn.classList.remove("opacity-100", "translate-y-0", "scale-100", "pointer-events-auto");
+        whatsappBtn.classList.add("opacity-0", "translate-y-8", "scale-75", "pointer-events-none");
+      } else {
+        whatsappBtn.classList.remove("opacity-0", "translate-y-8", "scale-75", "pointer-events-none");
+        whatsappBtn.classList.add("opacity-100", "translate-y-0", "scale-100", "pointer-events-auto");
+      }
+    };
 
     const updateScroll = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -125,6 +143,8 @@ const whatsappHref = `https://wa.me/${fullPhone}?text=${encodeURIComponent(defau
         button.classList.remove("translate-y-0", "opacity-100", "pointer-events-auto");
         button.classList.add("translate-y-20", "opacity-0", "pointer-events-none");
       }
+
+      checkFooterOverlap();
     };
 
     button.addEventListener("click", () => {
@@ -146,4 +166,5 @@ const whatsappHref = `https://wa.me/${fullPhone}?text=${encodeURIComponent(defau
     setupScrollToTop();
   }
   document.addEventListener("astro:page-load", setupScrollToTop);
+  document.addEventListener("astro:after-swap", setupScrollToTop);
 </script>
